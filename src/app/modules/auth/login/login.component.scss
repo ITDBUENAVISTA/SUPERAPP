@@ -1,0 +1,37 @@
+.contenedor {
+  position: relative;
+  background-image: url('/assets/images/background_login.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 69, 41, 0.5); /* Capa semitransparente */
+}
+
+
+.login-container {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1000px; /* Más ancho */
+  min-height: 600px; /* Aumentamos la altura mínima */
+  margin: auto;
+  padding: 30px; /* Espaciado interno */
+}
+
+
+.login-image {
+  object-fit: cover; /* Ajusta la imagen al contenedor y la recorta si es necesario */
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: 100%; /* Ocupa toda la altura del contenedor */
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+

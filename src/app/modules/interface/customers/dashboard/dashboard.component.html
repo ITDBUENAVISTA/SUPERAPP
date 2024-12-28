@@ -1,0 +1,217 @@
+<div class="row h-100">
+  <div class="col-lg-6 d-flex">
+    <div class="card text-white bg-primary overflow-hidden flex-fill custom-card">
+      <div class="card-body position-relative z-1">
+        <span class="badge badge-custom-dark d-inline-flex align-items-center gap-2 fs-3">
+          <!-- <span class="material-symbols-rounded text-danger">verified</span> -->
+          <!-- <span class="fw-semibold text-danger">Estas al día</span> -->
+          <span class="material-symbols-rounded text-danger">info</span>
+          <span class="fw-semibold text-danger">Tienes pagos pendientes</span>
+        </span>
+        <h4 class="text-white fw-normal mt-3 pt-7 mb-1">Hola, <span class="fw-bolder">Sebastian Yañez</span></h4>
+        <h6 class="opacity-75 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="row h-100">
+      <div class="col-md-6 d-flex">
+        <div class="card bg-success-subtle overflow-hidden shadow-none flex-fill">
+          <div class="card-body px-4">
+            <div class="d-flex align-items-center justify-content-between mb-8">
+              <div>
+                <span class="text-dark-light fw-semibold fs-12">Pagos Realizados</span>
+              </div>
+              <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
+                <span class="material-symbols-rounded text-success">payments</span>
+              </span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mb-6">
+              <h6 class="mb-0 fw-medium">60 (120)</h6>
+            </div>
+            <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+              style="height: 7px;">
+              <div class="progress-bar bg-success" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex">
+        <div class="card bg-danger-subtle overflow-hidden shadow-none flex-fill">
+          <div class="card-body px-4">
+            <div class="d-flex align-items-center justify-content-between mb-9">
+              <div>
+                <span class="text-dark-light fw-semibold">Saldo Capital</span>
+              </div>
+              <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
+                <span class="material-symbols-rounded text-danger">paid</span>
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <h4>{{0 | lempirasCurrency}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 d-flex align-items-strech">
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+          <div class="mb-3 mb-sm-0">
+            <h5 class="card-title fw-semibold">Historial de Pagos</h5>
+          </div>
+          <div>
+            <select class="form-select">
+              <option value="1">2024</option>
+              <option value="1">2025</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <p-chart type="line" [data]="data" [options]="options" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <p-table [value]="pagos" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center">N° de Pago</th>
+              <th class="text-center">Fecha</th>
+              <th class="text-end">Valor</th>
+              <th class="text-end">Saldo Capital</th>
+              <th class="text-center">Comprobante</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-pago>
+            <tr>
+              <td class="text-center">{{pago.id}}</td>
+              <td class="text-center">{{pago.fecha}}</td>
+              <td class="text-end" currencyMask>{{pago.valor | lempirasCurrency }}</td>
+              <td class="text-end" currencyMask>{{pago.capital | lempirasCurrency }}</td>
+              <td class="text-center">
+                <span (click)="showDialog()" style="cursor: pointer" class="material-symbols-rounded text-success">
+                  receipt_long
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="visible" (onHide)="closeSidebar()"
+(onShow)="showSidebar()">
+  <h3>Seleccione el proyecto</h3>
+  <div class="simplebar-content mb-2" style="cursor: pointer;padding: 0px;" *ngFor="let item of [1,2,3,4,5];index as i">
+    <a class="px-4 py-3 bg-hover-light-black d-flex align-items-center bg-light-subtle">
+      <div class="ms-6 d-inline-block w-75">
+        <h6 class="mb-1 fw-semibold chat-title">LOTE AB-{{item}}</h6>
+        <span class="fs-2 text-body-color d-block">La montaña</span>
+      </div>
+    </a>
+  </div>
+</p-sidebar>
+
+<button (click)="showSidebar()" type="button"
+  class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn">
+  <span class="material-symbols-rounded" style="font-size: 30px;">explore</span>
+</button>
+
+<p-dialog header="Header" [blockScroll]="true" [modal]="true" [(visible)]="showModal" [style]="{ width: '60rem' }" [draggable]="false"
+  [resizable]="false">
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <h4 class="font-bold white-space-nowrap">Recibo de Pago</h4>
+    </div>
+  </ng-template>
+
+  <div>
+    <div class="row pt-3">
+      <div class="col-md-12">
+        <div>
+          <address>
+            <h6>Cliente,</h6>
+            <h6 class="fw-bold">Sebastian Yañez</h6>
+            <p>
+              <span class="m-0">
+                Fecha de Pago :
+                24 de Diciembre, 2024
+              </span>
+              <br>Honduras, Residencial La Montaña
+              <br>LOTE AB-1,
+              <br>3184434074
+            </p>
+          </address>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="table-responsive mt-5">
+          <table class="table table-hover">
+            <thead>
+              <!-- start row -->
+              <tr>
+                <th class="text-center">#</th>
+                <th>Descripción</th>
+                <th class="text-end">Total</th>
+              </tr>
+              <!-- end row -->
+            </thead>
+            <tbody>
+              <!-- start row -->
+              <tr>
+                <td class="text-center">1</td>
+                <td>Pago cuota diciembre</td>
+                <td class="text-end">{{1500 | lempirasCurrency}}</td>
+              </tr>
+              <!-- end row -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="col-md-12">
+        <div class="pull-right mt-4 text-end">
+          <!-- <p>Sub - Total amount: $20,858</p>
+          <p>vat (10%) : $2,085</p> -->
+          <hr>
+          <h3>
+            <b>Total :</b> {{22943 | lempirasCurrency}}
+          </h3>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="text-end p-4">
+      <button class="btn bg-primary-subtle text-primary" type="submit">
+        Imprimir
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

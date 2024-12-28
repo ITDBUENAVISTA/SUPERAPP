@@ -1,0 +1,62 @@
+<!-- Sidebar Start -->
+<aside class="left-sidebar">
+  <!-- Sidebar scroll-->
+  <div>
+    <div class="row">
+      <!-- Logo Section -->
+      <div class="col-lg-12 col-8 d-flex justify-content-center align-items-center mt-2">
+        <a class="text-nowrap logo-img">
+          <div>
+            <img src="../assets/images/logo_lm.png" alt="Logo" width="100" />
+          </div>
+        </a>
+      </div>
+
+      <!-- Close Button Section -->
+      <div class="col-lg-12 col-4 d-flex justify-content-center align-items-center">
+        <div
+          (click)="menuMovil()"
+          class="close-btn d-xl-none d-block sidebartoggler cursor-pointer"
+          id="sidebarCollapse"
+        >
+          <span class="material-symbols-rounded">close</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav scroll-sidebar">
+      <ul id="sidebarnav">
+        <li class="nav-small-cap">
+          <span class="hide-menu">Home</span>
+        </li>
+        <li class="sidebar-item">
+          <a aria-expanded="false" routerLink="/clientes/dashboard" class="sidebar-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <span class="material-symbols-rounded">widgets</span>
+            <span class="hide-menu">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <span class="sidebar-divider lg"></span>
+        </li>
+        <li class="nav-small-cap">
+          <span class="hide-menu">SOPORTE</span>
+        </li>
+        <li class="sidebar-item">
+          <a aria-expanded="false" routerLink="/soporte/usuarios" class="sidebar-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+            <span class="material-symbols-rounded">group</span>
+            <span class="hide-menu">Usuarios</span>
+          </a>
+        </li>
+        <li>
+          <span class="sidebar-divider lg"></span>
+        </li>
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
+<!--  Sidebar End -->

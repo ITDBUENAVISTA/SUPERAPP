@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+$custom-primary: #1F4529;
+$custom-secondary: #2D2926;
+$custom-danger: #FB4141;
+$custom-black: #2D2926;
+
+$primary: $custom-primary !default;
+$secondary: $custom-secondary !default;
+$danger: $custom-danger !default;
+$dark: #2D2926;
+
+* {
+  font-family: "Work Sans", serif;
+}
+
+.sidebar-link.active {
+  box-shadow: 0px 17px 20px -8px rgba(31, 69, 41, 0.231372549) !important;
+}
+
+th {
+  padding: 16px 16px;
+}
+
+tr>td {
+  border: 1px solid #e2e8f0;
+  border-width: 0 0 1px 0;
+  padding: 0.75rem 1rem;
+}
+
+tr:nth-child(even) {
+  background-color: #F8FAFC; /* Cambia este color según tu diseño */
+}
+
+.p-sidebar{
+  background: white;
+  padding: 20px;
+}
+
+button.p-ripple.p-element.p-sidebar-close.p-sidebar-icon.p-link {
+  border: none;
+  background: transparent
+}
+
+.p-sidebar-header{
+  display: flex;
+  justify-content: end;
+}
+
+.p-component-overlay.p-sidebar-mask.p-component-overlay-enter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.p-sidebar-mask.p-component-overlay-leave {
+  opacity: 0;
+}
+
+.p-dialog-header-icon.p-dialog-header-close.p-link{
+  border: none;
+  background: transparent
+}
+.p-dialog-header{
+  padding: 21px;
+}
+.p-dialog-content{
+  padding: 0px 21px 21px;
+}
+.p-dialog{
+  background: white !important;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.p-component-overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  transition-duration: 0.2s;
+}
+
+@import 'assets/scss/styles.scss';
+
+
+
