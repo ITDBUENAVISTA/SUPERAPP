@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="card card-body py-3">
+    <div class="row align-items-center">
+      <div class="col-12">
+        <div class="d-sm-flex align-items-center justify-space-between">
+          <h4 class="mb-4 mb-sm-0 card-title">Pagos</h4>
+          <nav aria-label="breadcrumb" class="ms-auto">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item d-flex align-items-center">
+                <a class="text-muted text-decoration-none d-flex" routerLink="/soporte/dashboard">
+                  <span class="material-symbols-rounded">home</span>
+                </a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <span class="badge fw-medium fs-2 bg-primary-subtle text-primary">
+                  Pagos
+                </span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-body">
+    <div class="row">
+      <div class="col-md-4 col-xl-3">
+        <form class="position-relative">
+          <input [appFilterTables]="tabla" type="text" class="form-control product-search ps-5" id="input-search" placeholder="Buscar pago">
+          <span class="material-symbols-rounded position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3">search</span>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-12">
+          <p-table #tabla [value]="vounchers" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}"
+            [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true"
+            [globalFilterFields]="['date','person','lot','status','concept']"
+            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros">
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-start" scope="col" pSortableColumn="date">Fecha</th>
+                <th class="text-start" scope="col" pSortableColumn="person">Nombre</th>
+                <th class="text-start" scope="col" pSortableColumn="lot">Lote</th>
+                <th class="text-start" scope="col" pSortableColumn="status">Estado</th>
+                <th class="text-start" scope="col" pSortableColumn="concept">Concepto</th>
+                <th class="text-center" scope="col">Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-vouncher>
+              <tr>
+                <td class="text-start">{{vouncher.date | date}}</td>
+                <td class="text-start">{{vouncher.person}}</td>
+                <td class="text-start">{{vouncher.lot}}</td>
+                <td class="text-start">
+                  <div *ngIf="vouncher.status === 'AUDITADO'" class="d-flex align-items-center"><span class="material-symbols-rounded text-success" style="margin-right: 5px;">task_alt</span> {{vouncher.status}}</div>
+                  <div *ngIf="vouncher.status === 'CARGADO'" class="d-flex align-items-center"><span class="material-symbols-rounded text-info" style="margin-right: 5px;">cloud_done</span> {{vouncher.status}}</div>
+                </td>
+                <td class="text-start">{{vouncher.concept}}</td>
+                <td class="text-center">
+                  <div class="dropdown dropstart">
+                    <a class="text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                      style="cursor: pointer;">
+                      <span class="material-symbols-rounded">more_vert</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li>
+                        <a (click)="changeStatusVoucher(vouncher._id,vouncher.status)" class="dropdown-item d-flex align-items-center gap-3" style="cursor: pointer;">
+                          <span class="material-symbols-rounded">toggle_off</span>
+                          Cambiar estado
+                        </a>
+                      </li>
+                      <li>
+                        <a (click)="openVouncher(vouncher.file)" class="dropdown-item d-flex align-items-center gap-3" style="cursor: pointer;">
+                          <span class="material-symbols-rounded">open_in_new</span>
+                          Ver Comprobante
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr *ngIf="!loadedVounchers">
+                <td colspan="6" style="text-align: center;">
+                  <output class="spinner-border">
+                    <span class="visually-hidden">Loading...</span>
+                  </output>
+                </td>
+              </tr>
+              <tr *ngIf="loadedVounchers">
+                <td style="text-align: center;" colspan="6">No se encontro información.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

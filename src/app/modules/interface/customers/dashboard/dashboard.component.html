@@ -1,14 +1,52 @@
+<div class="container-fluid">
+
+
+  <div class="d-flex align-items-center mt-3"
+  [ngClass]="{'justify-content-between': loadedProjects && projects.length > 2,'justify-content-center': !(loadedPaymentes && projects.length > 2)}">
+    <!-- Botón de Previous -->
+    <button *ngIf="loadedProjects && (projects.length > 2)" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center" (click)="previousPage()" [disabled]="currentPage === 0">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+
+    <!-- Botones de los proyectos visibles -->
+
+    <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2rem" styleClass="mb-2" />
+    <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center mx-3">
+      <button
+        *ngFor="let project of visibleProjects; let i = index"
+        type="button"
+        class="btn btn-primary flex-fill mx-1"
+        [ngClass]="{'active': i === indexActive}"
+        (click)="selectProject(project); indexActive = i">
+        Hacienda Colonia -
+        {{ project.batch }}
+      </button>
+    </div>
+
+    <!-- Botón de Next -->
+    <button *ngIf="loadedProjects && (projects.length > 2)" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center" (click)="nextPage()" [disabled]="(currentPage + 1) * itemsPerPage >= projects.length">
+      <span class="material-symbols-rounded">chevron_right</span>
+    </button>
+  </div>
+
+</div>
+
+
 <div class="row h-100">
   <div class="col-lg-6 d-flex">
     <div class="card text-white bg-primary overflow-hidden flex-fill custom-card">
       <div class="card-body position-relative z-1">
-        <span class="badge badge-custom-dark d-inline-flex align-items-center gap-2 fs-3">
-          <!-- <span class="material-symbols-rounded text-danger">verified</span> -->
-          <!-- <span class="fw-semibold text-danger">Estas al día</span> -->
-          <span class="material-symbols-rounded text-danger">info</span>
-          <span class="fw-semibold text-danger">Tienes pagos pendientes</span>
-        </span>
-        <h4 class="text-white fw-normal mt-3 pt-7 mb-1">Hola, <span class="fw-bolder">Sebastian Yañez</span></h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="text-white">{{projecSelected.batch}}</h2>
+          </div>
+          <div class="col-md-6 d-flex justify-content-end">
+            <span class="mb-1 badge text-bg-success">
+              <h4 class="text-white m-0">{{projecSelected.finance_amount | lempirasCurrency}}</h4>
+            </span>
+          </div>
+        </div>
+        <h4 class="text-white fw-normal mt-3 pt-4 mb-1">Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span></h4>
         <h6 class="opacity-75 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
       </div>
     </div>
@@ -21,18 +59,14 @@
           <div class="card-body px-4">
             <div class="d-flex align-items-center justify-content-between mb-8">
               <div>
-                <span class="text-dark-light fw-semibold fs-12">Pagos Realizados</span>
+                <span class="text-dark-light fw-semibold fs-12">Tiempo de Pago</span>
               </div>
               <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
-                <span class="material-symbols-rounded text-success">payments</span>
+                <span class="material-symbols-rounded text-success">calendar_month</span>
               </span>
             </div>
             <div class="d-flex align-items-center justify-content-between mb-6">
-              <h6 class="mb-0 fw-medium">60 (120)</h6>
-            </div>
-            <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
-              style="height: 7px;">
-              <div class="progress-bar bg-success" style="width: 50%"></div>
+              <h4 class="mb-0 fw-medium">{{projecSelected.quotas}} meses</h4>
             </div>
           </div>
         </div>
@@ -40,44 +74,17 @@
       <div class="col-md-6 d-flex">
         <div class="card bg-danger-subtle overflow-hidden shadow-none flex-fill">
           <div class="card-body px-4">
-            <div class="d-flex align-items-center justify-content-between mb-9">
+            <div class="d-flex align-items-center justify-content-between mb-">
               <div>
-                <span class="text-dark-light fw-semibold">Saldo Capital</span>
+                <span class="text-dark-light fw-semibold">Valor de la Cuota</span>
               </div>
               <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
                 <span class="material-symbols-rounded text-danger">paid</span>
               </span>
             </div>
-            <div class="row">
-              <div class="col-6">
-                <h4>{{0 | lempirasCurrency}}</h4>
-              </div>
+            <div class="d-flex align-items-center justify-content-between mb-6">
+              <h4>{{projecSelected.quota_value | lempirasCurrency}}</h4>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-12 d-flex align-items-strech">
-    <div class="card w-100">
-      <div class="card-body">
-        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-          <div class="mb-3 mb-sm-0">
-            <h5 class="card-title fw-semibold">Historial de Pagos</h5>
-          </div>
-          <div>
-            <select class="form-select">
-              <option value="1">2024</option>
-              <option value="1">2025</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" />
           </div>
         </div>
       </div>
@@ -89,27 +96,40 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <p-table [value]="pagos" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
+        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
           <ng-template pTemplate="header">
             <tr>
-              <th class="text-center">N° de Pago</th>
-              <th class="text-center">Fecha</th>
-              <th class="text-end">Valor</th>
-              <th class="text-end">Saldo Capital</th>
-              <th class="text-center">Comprobante</th>
+              <th class="text-center" scope="col">N° de Pago</th>
+              <th class="text-center" scope="col">Fecha</th>
+              <th class="text-end" scope="col">Valor</th>
+              <th class="text-end" scope="col">Saldo Capital</th>
+              <th class="text-center" scope="col">Comprobante</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-pago>
+          <ng-template pTemplate="body" let-pay>
             <tr>
-              <td class="text-center">{{pago.id}}</td>
-              <td class="text-center">{{pago.fecha}}</td>
-              <td class="text-end" currencyMask>{{pago.valor | lempirasCurrency }}</td>
-              <td class="text-end" currencyMask>{{pago.capital | lempirasCurrency }}</td>
+              <td class="text-center">{{pay._id}}</td>
+              <td class="text-center">{{pay.date}}</td>
+              <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
+              <td class="text-end">{{pay.capital_balance | lempirasCurrency }}</td>
               <td class="text-center">
-                <span (click)="showDialog()" style="cursor: pointer" class="material-symbols-rounded text-success">
+                <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
+                  style="cursor: pointer" class="material-symbols-rounded text-success">
                   receipt_long
                 </span>
               </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr *ngIf="!loadedPaymentes">
+              <td colspan="5" style="text-align: center;">
+                <output class="spinner-border">
+                  <span class="visually-hidden">Loading...</span>
+                </output>
+              </td>
+            </tr>
+            <tr *ngIf="loadedPaymentes">
+              <td style="text-align: center;" colspan="5">No se encontro información.</td>
             </tr>
           </ng-template>
         </p-table>
@@ -118,14 +138,13 @@
   </div>
 </div>
 
-<p-sidebar [(visible)]="visible" (onHide)="closeSidebar()"
-(onShow)="showSidebar()">
+<!-- <p-sidebar [(visible)]="visible" (onHide)="closeSidebar()" (onShow)="showSidebar()">
   <h3>Seleccione el proyecto</h3>
-  <div class="simplebar-content mb-2" style="cursor: pointer;padding: 0px;" *ngFor="let item of [1,2,3,4,5];index as i">
-    <a class="px-4 py-3 bg-hover-light-black d-flex align-items-center bg-light-subtle">
+  <div class="simplebar-content mb-2" style="cursor: pointer;padding: 0px;" *ngFor="let project of projects;">
+    <a (click)="selectProject(project)" class="px-4 py-3 bg-hover-light-black d-flex align-items-center bg-light-subtle">
       <div class="ms-6 d-inline-block w-75">
-        <h6 class="mb-1 fw-semibold chat-title">LOTE AB-{{item}}</h6>
-        <span class="fs-2 text-body-color d-block">La montaña</span>
+        <h6 class="mb-1 fw-semibold chat-title">LOTE - {{project.batch}}</h6>
+        <span class="fs-2 text-body-color d-block">Hacienda Colonial</span>
       </div>
     </a>
   </div>
@@ -134,84 +153,6 @@
 <button (click)="showSidebar()" type="button"
   class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn">
   <span class="material-symbols-rounded" style="font-size: 30px;">explore</span>
-</button>
+</button> -->
 
-<p-dialog header="Header" [blockScroll]="true" [modal]="true" [(visible)]="showModal" [style]="{ width: '60rem' }" [draggable]="false"
-  [resizable]="false">
-  <ng-template pTemplate="header">
-    <div class="inline-flex align-items-center justify-content-center gap-2">
-      <h4 class="font-bold white-space-nowrap">Recibo de Pago</h4>
-    </div>
-  </ng-template>
-
-  <div>
-    <div class="row pt-3">
-      <div class="col-md-12">
-        <div>
-          <address>
-            <h6>Cliente,</h6>
-            <h6 class="fw-bold">Sebastian Yañez</h6>
-            <p>
-              <span class="m-0">
-                Fecha de Pago :
-                24 de Diciembre, 2024
-              </span>
-              <br>Honduras, Residencial La Montaña
-              <br>LOTE AB-1,
-              <br>3184434074
-            </p>
-          </address>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="table-responsive mt-5">
-          <table class="table table-hover">
-            <thead>
-              <!-- start row -->
-              <tr>
-                <th class="text-center">#</th>
-                <th>Descripción</th>
-                <th class="text-end">Total</th>
-              </tr>
-              <!-- end row -->
-            </thead>
-            <tbody>
-              <!-- start row -->
-              <tr>
-                <td class="text-center">1</td>
-                <td>Pago cuota diciembre</td>
-                <td class="text-end">{{1500 | lempirasCurrency}}</td>
-              </tr>
-              <!-- end row -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-      <div class="col-md-12">
-        <div class="pull-right mt-4 text-end">
-          <!-- <p>Sub - Total amount: $20,858</p>
-          <p>vat (10%) : $2,085</p> -->
-          <hr>
-          <h3>
-            <b>Total :</b> {{22943 | lempirasCurrency}}
-          </h3>
-        </div>
-        <div class="clearfix"></div>
-        <hr>
-
-      </div>
-    </div>
-
-  </div>
-
-  <ng-template pTemplate="footer">
-    <div class="text-end p-4">
-      <button class="btn bg-primary-subtle text-primary" type="submit">
-        Imprimir
-      </button>
-    </div>
-  </ng-template>
-</p-dialog>
+<app-payment-receipt [pay]="paySelected"></app-payment-receipt>

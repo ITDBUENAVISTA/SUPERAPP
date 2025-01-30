@@ -1,0 +1,83 @@
+<div class="modal fade" id="modalFormUser" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Usuario</h5>
+        <button #closeModalForm type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-grid" [formGroup]="formUser" (ngSubmit)="onSubmit()">
+          <div class="form-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="username" placeholder="Ingresa el username"
+                  formControlName="username"  name="username" [class.is-invalid]="isInvalidField('username')"
+                  [value]="user.username">
+                  <ng-container *ngFor="let validation of validationMessages['username']">
+                    <div *ngIf="isValid('username', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <input [readOnly]="isEdit" type="password" class="form-control" id="password" placeholder="Ingresa la contraseña"
+                  formControlName="password"  name="password" [class.is-invalid]="isInvalidField('password')"
+                  [value]="user.password">
+                  <ng-container *ngFor="let validation of validationMessages['password']">
+                    <div *ngIf="isValid('password', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <select class="form-select" id="rols" formControlName="rols"
+                    [class.is-invalid]="isInvalidField('rols')">
+                    <option value="" disabled>Selecciona una opción</option>
+                    <option *ngFor="let role of rols" [value]="role.rols">{{ role.name }}</option>
+                  </select>
+                  <ng-container *ngFor="let validation of validationMessages['rols']">
+                    <div *ngIf="isValid('rols', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <ng-select [clearable]="false" id="person" name="person" formControlName="person"
+                  class="custom form-select" placeholder="Seleccione la persona" notFoundText="No se encontro esta persona."
+                  [class.is-invalid]="isInvalidField('person')"
+                  [class.has-value]="isInvalidField('person')">
+                  <ng-option *ngFor="let person of persons" [value]="person._id">{{person.name}}</ng-option>
+                  </ng-select>
+                  <ng-container *ngFor="let validation of validationMessages['person']">
+                    <div *ngIf="isValid('person', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-success" (click)="onSubmit()">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>

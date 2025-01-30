@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { InterfaceComponent } from '../interface.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
       },
       {
         path: 'usuarios', component: UsersComponent, canActivate: []
+      },
+      {
+        path: 'pagos', component: PaymentsComponent, canActivate: []
       },
       {
         path: '', redirectTo: '/dashboard', pathMatch: 'full'

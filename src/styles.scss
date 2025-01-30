@@ -1,17 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-$custom-primary: #1F4529;
-$custom-secondary: #2D2926;
+$custom-primary: #666633;
+$custom-secondary: #006666;
 $custom-danger: #FB4141;
-$custom-black: #2D2926;
+$custom-black: #333333;
 
 $primary: $custom-primary !default;
 $secondary: $custom-secondary !default;
 $danger: $custom-danger !default;
-$dark: #2D2926;
+$dark: #333333;
 
 * {
-  font-family: "Work Sans", serif;
+  font-family: "Inter", serif;
+}
+
+.error-message{
+  color: $danger;
+}
+
+.p-datatable-wrapper{
+  min-height: 350px !important;
 }
 
 .sidebar-link.active {
@@ -82,6 +90,91 @@ button.p-ripple.p-element.p-sidebar-close.p-sidebar-icon.p-link {
 .p-component-overlay {
   background-color: rgba(0, 0, 0, 0.4);
   transition-duration: 0.2s;
+}
+
+.p-paginator.p-component.ng-star-inserted button{
+border: none;
+margin: 2px;
+background: none;
+}
+
+.p-dropdown {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  padding: 8px 16px !important;
+  width: 100% !important;
+}
+
+.p-dropdown:focus{
+  border-color: var(--bs-primary);
+  outline: 0;
+  box-shadow: none;
+}
+
+.p-dropdown:hover{
+  border-color: var(--bs-primary);
+  outline: 0;
+  box-shadow: none;
+}
+
+.p-dropdown-items-wrapper{
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+  margin: 2px 0;
+  padding: 0.5rem 0.75rem;
+  border: 0 none;
+  color: #334155;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+  border-radius: 4px;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+}
+
+.ng-select.custom .ng-dropdown-panel {
+  background-color: white;
+  border: solid;
+  border-width: 1px;
+  border-color: #E0E6EB;
+  border-radius: 5px;
+  width: 100%;
+  margin-left: -15px !important;
+  margin-top: 10px;
+}
+
+.ng-select.custom .ng-option {
+  padding: 8px 10px;
+  color: $dark; /* Blue color for options */
+}
+
+.ng-select.custom .ng-option:hover {
+  background-color: $secondary; /* Blue background on hover */
+  color: white;
+  border-radius: 5px; /* White text on hover */
+}
+
+.ng-select.custom .ng-placeholder {
+  display: block;
+  color: $dark; /* Color del placeholder cuando no hay valor */
+}
+
+.ng-has-value .ng-placeholder {
+  display: none !important; /* Oculta el placeholder cuando hay un valor */
+}
+
+.ng-select.has-value .ng-value {
+  color: #5A6A85;
+  display: block; /* Asegura que el valor seleccionado se muestra correctamente */
+}
+
+.selected {
+  background: $secondary !important;
+  color: white !important;
 }
 
 @import 'assets/scss/styles.scss';

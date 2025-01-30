@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <div class="container mb-4">
+    <div class="banner d-flex flex-wrap align-items-center">
+        <div class="d-flex align-items-center me-auto">
+            <img src="/assets/images/logos/logo2.svg" alt="Logo" class="logo">
+        </div>
+        <div class="text-center text-md-end flex-grow-1">
+            <h2 class="text-white m-0">Pagos</h2>
+        </div>
+    </div>
+</div>
+
+
+  <div class="card overflow-hidden invoice-application">
+    <div class="d-flex align-items-center justify-content-between gap-6 m-3 d-lg-none">
+      <button class="btn btn-primary d-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat-sidebar" aria-controls="chat-sidebar">
+        <span class="material-symbols-rounded">menu</span>
+      </button>
+    </div>
+    <div class="d-flex">
+      <div class="w-25 d-none d-lg-block border-end user-chat-box">
+        <div class="app-invoice">
+          <ul class="overflow-auto invoice-users" data-simplebar="init">
+            <div class="simplebar-wrapper" style="margin: 0px;">
+              <div class="simplebar-mask">
+                <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                  <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;">
+                    <div class="simplebar-content" style="padding: 0px;">
+                      <ul>
+                        <li *ngIf="!loadedProjects" class="d-flex justify-content-center p-4">
+                          <div class="spinner-grow" style="width: 3rem; height: 3rem" >
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                        </li>
+                        <li *ngIf="loadedProjects && projects.length == 0" class="d-flex justify-content-center p-4">
+                          <h6 class="mb-0 invoice-customer text-center">Aún no tienes ningún proyecto adquirido.</h6>
+                        </li>
+                        <li style="cursor: pointer;" *ngFor="let project of projects" (click)="projecSelected = project">
+                          <a class="p-3 bg-hover-light-black border-bottom d-flex align-items-start "
+                            [ngClass]="{'bg-light-subtle': project._id === projecSelected._id}">
+                            <div class="ms-3 d-inline-block w-75">
+                              <h6 class="mb-0 invoice-customer">{{project.batch}}</h6>
+                              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">Hacienda
+                                Colonial</span>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="simplebar-placeholder" style="width: 231px; height: 508px;"></div>
+            </div>
+            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+              <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+            </div>
+            <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
+              <div class="simplebar-scrollbar" style="height: 0px; display: none;"></div>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="w-75 w-xs-100 chat-container">
+        <div class="invoice-inner-part h-100">
+          <div class="invoiceing-box">
+            <div class="invoice-header d-flex justify-content-between align-items-center border-bottom p-3">
+              <button data-bs-toggle="modal" data-bs-target="#modalFormPayment" class="btn btn-primary text-nowrap">Registrar Pago</button>
+            </div>
+            <div class="p-3">
+              <p-table [value]="vounchersByCustomer[projecSelected._id]" styleClass="p-datatable-striped"
+                [tableStyle]="{'min-width': '20rem'}">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 20%;" class="text-start" scope="col">Fecha</th>
+                    <th style="width: 50%;" class="text-start" scope="col">Concepto</th>
+                    <th style="width: 30%;" class="text-center" scope="col">Comprobante</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-vouncher>
+                  <tr>
+                    <td class="text-start">{{vouncher.date | date}}</td>
+                    <td class="text-start">{{vouncher.concept}}</td>
+                    <td class="text-center">
+                      <img [src]="'http://localhost:8002/comprobantes/'+vouncher.file" alt="" class="rounded" width="50" height="50">
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr *ngIf="!loadedVounchers">
+                    <td colspan="3" style="text-align: center;">
+                      <output class="spinner-border">
+                        <span class="visually-hidden">Loading...</span>
+                      </output>
+                    </td>
+                  </tr>
+                  <tr *ngIf="loadedVounchers">
+                    <td style="text-align: center;" colspan="6">No se encontro información.</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-payment-form [isEdit]="false" [registeringPayment]="registeringPayment" [customer]="projecSelected" [vouncher]="newVouncher"
+[signal]="signal" (formSubmit)="formSubmit($event)"></app-payment-form>
+
+
+<div class="offcanvas offcanvas-start user-chat-box" id="chat-sidebar" aria-labelledby="offcanvasExampleLabel" aria-modal="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+      Proyectos
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="app-invoice overflow-auto">
+    <div class="simplebar-content" style="padding: 0px;">
+      <ul>
+        <li *ngIf="!loadedProjects" class="d-flex justify-content-center p-4">
+          <div class="spinner-grow" style="width: 3rem; height: 3rem" >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </li>
+        <li *ngIf="loadedProjects && projects.length == 0" class="d-flex justify-content-center p-4">
+          <h6 class="mb-0 invoice-customer text-center">Aún no tienes ningún proyecto adquirido.</h6>
+        </li>
+        <li data-bs-dismiss="offcanvas" style="cursor: pointer;" *ngFor="let project of projects" (click)="projecSelected = project">
+          <a class="p-3 bg-hover-light-black border-bottom d-flex align-items-start "
+            [ngClass]="{'bg-light-subtle': project._id === projecSelected._id}">
+            <div class="ms-3 d-inline-block w-75">
+              <h6 class="mb-0 invoice-customer">{{project.batch}}</h6>
+              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">Hacienda
+                Colonial</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

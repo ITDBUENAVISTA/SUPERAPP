@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { sessionGuard } from './core/guards/session.guard';
 
 const routes: Routes = [
   {
@@ -8,6 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [sessionGuard],
     loadChildren: () => import('./modules/interface/interface.module').then(m => m.InterfaceModule)
   },
   {

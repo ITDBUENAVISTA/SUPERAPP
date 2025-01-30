@@ -4,29 +4,33 @@
     <div class="row login-container">
       <!-- Imagen a la izquierda -->
       <div class="col-md-6 d-none d-md-block p-0">
-        <img src="assets/images/persona_login.jpg" alt="Imagen de Login" class="img-fluid login-image h-100">
+        <img src="assets/images/persona_login.jpg" alt="Login" class="img-fluid login-image h-100">
       </div>
       <!-- Formulario a la derecha -->
       <div class="col-md-6 p-4">
         <div class="d-flex justify-content-center">
-          <img src="../assets/images/logo_lm.png" alt="Logo" width="150"/>
+          <img src="../assets/images/logos/logo.png" alt="logo" width="150"/>
         </div>
         <h3 class="text-center mb-4">Iniciar Sesión</h3>
-        <form>
+        <form (ngSubmit)="ingreso()">
           <div class="mb-3 form-floating">
-            <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo">
+            <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo"
+            name="username"
+            [(ngModel)]="usuarioIngreso.username">
             <label for="email" class="form-label">Correo Electrónico</label>
           </div>
           <div class="mb-3 form-floating">
-            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"
+            name="contrasena"
+            [(ngModel)]="usuarioIngreso.password">
             <label for="password" class="form-label">Contraseña</label>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <button [disabled]="logging" type="submit" class="btn btn-primary">Ingresar</button>
           </div>
-          <div class="text-center mt-3">
+          <!-- <div class="text-center mt-3">
             <a>¿Olvidaste tu contraseña?</a>
-          </div>
+          </div> -->
         </form>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { InterfaceComponent } from '../interface.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,9 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard', component: DashboardComponent, canActivate: []
+      },
+      {
+        path: 'pagos', component: PaymentsComponent, canActivate: []
       },
       {
         path: '', redirectTo: '/dashboard', pathMatch: 'full'

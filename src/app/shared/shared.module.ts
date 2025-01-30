@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { PrimeNgModule } from './prime-ng.module';
 import { LempirasCurrencyPipe } from './pipes/lempiras-currency.pipe';
+import { FilterTablesDirective } from './directives/filter-tables.directive';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export const customCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
@@ -16,17 +18,21 @@ export const customCurrencyMaskConfig: CurrencyMaskConfig = {
 
 @NgModule({
   declarations: [
-    LempirasCurrencyPipe
+    LempirasCurrencyPipe,
+    FilterTablesDirective,
   ],
   imports: [
     CommonModule,
     PrimeNgModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    NgSelectModule
   ],
   exports: [
     PrimeNgModule,
     CurrencyMaskModule,
-    LempirasCurrencyPipe
+    LempirasCurrencyPipe,
+    FilterTablesDirective,
+    NgSelectModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: customCurrencyMaskConfig }

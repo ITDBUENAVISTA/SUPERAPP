@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UiServiceService } from '../../services/ui-service.service';
+import { AuthService } from 'src/app/modules/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,17 @@ import { UiServiceService } from '../../services/ui-service.service';
 export class HeaderComponent {
 
   constructor(
-    private uiService: UiServiceService
+    private readonly uiService: UiServiceService,
+    private readonly authService: AuthService
   ) { }
 
 
   menuMovil() {
     this.uiService.headerClick.emit();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

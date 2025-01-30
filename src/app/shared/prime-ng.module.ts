@@ -5,6 +5,7 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DialogModule } from 'primeng/dialog';
     ChartModule,
     TableModule,
     SidebarModule,
-    DialogModule
+    DialogModule,
+    SkeletonModule
   ]
 })
 export class PrimeNgModule { }

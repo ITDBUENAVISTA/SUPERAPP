@@ -4,18 +4,26 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { SupportRoutingModule } from './support.routing';
 import { UsersComponent } from './users/users.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PaymentsComponent } from './payments/payments.component';
 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UsersComponent
+    UsersComponent,
+    UserFormComponent,
+    PaymentsComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    SupportRoutingModule
+    ReactiveFormsModule,
+    SupportRoutingModule,
+    SharedModule
   ]
 })
 export class SupportModule { }
