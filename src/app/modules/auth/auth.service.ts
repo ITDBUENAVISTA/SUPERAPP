@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/environments/environment';
+import { environment } from 'src/environments/environment';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { tap } from 'rxjs';
 import { User } from 'src/app/core/interfaces/users/user.intrefaces';

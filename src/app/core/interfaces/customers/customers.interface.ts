@@ -1,5 +1,5 @@
 import { Person } from "../persons/persons.interface";
-import { Pay } from "./payments.interface";
+import { LateFees, Pay } from "./payments.interface";
 
 export interface Customer {
   _id: string;
@@ -9,5 +9,6 @@ export interface Customer {
   quotas: number,
   type: string,
   person: Person;
-  payments: Pay[]
+  payments: Pay[];
+  lateFee?: LateFees
 }

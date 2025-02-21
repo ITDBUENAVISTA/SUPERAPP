@@ -177,7 +177,73 @@ background: none;
   color: white !important;
 }
 
+// Definir colores base
+$primary-hover: darken($primary, 10%);
+$primary-active: lighten($primary, 10%);
+$text-color: white;
+
+// Aplicar estilos a los botones de FullCalendar
+.fc .fc-button {
+  background-color: $primary !important;
+  border-color: $primary !important;
+  color: $text-color !important;
+  font-weight: bold;
+}
+
+// Cambiar color al pasar el mouse
+.fc .fc-button:hover {
+  background-color: $primary-hover !important;
+}
+
+// Cambiar color cuando el botón está activo
+.fc .fc-button-active {
+  background-color: $primary-active !important;
+  border-color: $primary-active !important;
+}
+
+.fc .fc-day-today {
+  background-color: lighten($primary, 20%) !important; // Color más claro para destacar
+  color: black !important;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+// 🔹 Estilos para la fecha seleccionada (clickeada)
+.fc-daygrid-day.fc-day-selected {
+  background-color: $primary !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 5px;
+}
+// Personalizar título del calendario
+.fc .fc-toolbar-title {
+  color: $primary;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fc-event {
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
+  border: none;
+}
+
+// Estilos específicos según la información del evento
+.fc-event.morning {
+  background-color: $secondary !important;
+  color: white !important;
+}
+
+.fc-event.afternoon {
+  background-color: $dark !important;
+  color: white !important;
+}
+
+
+
 @import 'assets/scss/styles.scss';
+@import 'assets/css/spinner.css';
 
 
 

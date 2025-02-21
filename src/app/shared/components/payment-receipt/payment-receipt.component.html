@@ -12,12 +12,12 @@
               <div>
                 <address>
                   <h6>Cliente,</h6>
-                  <h6 class="fw-bold">{{pay.person.name}}</h6>
+                  <h6 class="fw-bold">{{person.name}}</h6>
                   <p>
-                    <span class="m-0">Fecha de Pago : {{pay.date}}</span>
+                    <span class="m-0">Fecha de Pago : {{pay.date | date}}</span>
                     <br>Honduras, Residencial Hacienda Colonial
                     <br>LOTE: {{pay.batch}}
-                    <br>{{pay.person.phone}}
+                    <br>{{person.phone}}
                     <br>Valor de la cuota: {{pay.quota_value | lempirasCurrency}}
                   </p>
                 </address>
@@ -60,11 +60,6 @@
           </div>
 
         </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn bg-primary-subtle text-primary" type="submit">
-          Imprimir
-        </button>
       </div>
     </div>
   </div>

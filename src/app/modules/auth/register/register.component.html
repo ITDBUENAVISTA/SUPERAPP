@@ -1,0 +1,128 @@
+<div class="contenedor">
+  <div class="position-relative overflow-hidden auth-bg min-vh-100 w-100 d-flex align-items-center justify-content-center">
+    <div class="d-flex align-items-center justify-content-center w-100">
+      <div class="row justify-content-center w-100 my-5 my-xl-0">
+        <div class="col-md-9 d-flex flex-column justify-content-center">
+          <div class="card mb-0 bg-body auth-login m-auto w-100">
+            <div class="row gx-0">
+              <!-- ------------------------------------------------- -->
+              <!-- Part 1 -->
+              <!-- ------------------------------------------------- -->
+              <div class="col-xl-6 border-end">
+                <div class="row justify-content-center py-4">
+                  <div class="col-lg-11">
+                    <div class="card-body">
+                      <a class="text-nowrap logo-img d-block w-100">
+                        <img src="../assets/images/logos/logo.png" alt="logo" width="150"/>
+                      </a>
+                      <h2 class="lh-base mb-4">Regístrate y Accede a tu Cuenta</h2>
+                      <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+                        <div class="mb-3 form-floating">
+                          <input type="text" class="form-control" id="text" name="username" placeholder="" autocomplete="off" appUppercase maxlength="25"
+                          formControlName="username" [class.is-invalid]="isInvalidField('username')">
+                          <label for="username" class="form-label">Username</label>
+                          <ng-container *ngFor="let validation of validationMessages['username']">
+                            <div *ngIf="isValid('username', validation.type)">
+                              <div class="error-message">
+                                {{ validation.message }}
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+
+                        <div class="mb-3 form-floating">
+                          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" placeholder="" autocomplete="off"
+                          formControlName="password" [class.is-invalid]="isInvalidField('password')" maxlength="25">
+                          <label for="password" class="form-label">Confirmar Contraseña</label>
+                          <ng-container *ngFor="let validation of validationMessages['password']">
+                            <div *ngIf="isValid('password', validation.type)">
+                              <div class="error-message">
+                                {{ validation.message }}
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+
+                        <div class="mb-3 form-floating">
+                          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="" autocomplete="off"
+                          formControlName="confirmPassword" [class.is-invalid]="isInvalidField('confirmPassword')" maxlength="25">
+                          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                          <ng-container *ngFor="let validation of validationMessages['confirmPassword']">
+                            <div *ngIf="isValid('confirmPassword', validation.type)">
+                              <div class="error-message">
+                                {{ validation.message }}
+                              </div>
+                            </div>
+                          </ng-container>
+                          <div *ngIf="!passwordMatch()" class="error-message">
+                            Las contraseñas deben coincidir.
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                          <div class="form-check">
+                            <input (change)="togglePasswordVisibility()" class="form-check-input primary" id="showPassword" type="checkbox">
+                            <label class="form-check-label text-dark" for="showPassword">
+                              Mostrar Contraseñas
+                            </label>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                          <button type="submit" class="btn btn-secondary py-8 mb-4 rounded-1">Registrarse</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!-- ------------------------------------------------- -->
+              <!-- Part 2 -->
+              <!-- ------------------------------------------------- -->
+              <div class="col-xl-6 d-none d-xl-block">
+                <div class="row justify-content-center align-items-center h-100">
+                  <div class="col-lg-9">
+                    <div id="auth-login" class="carousel slide auth-carousel d-flex flex-column h-100" data-bs-ride="carousel">
+
+                      <!-- Contenedor del contenido del carrusel -->
+                      <div class="carousel-inner flex-grow-1 d-flex align-items-stretch">
+                        <div class="carousel-item active">
+                          <div class="d-flex flex-column justify-content-start h-100 text-center">
+                            <h4 class="mb-3">Feature Rich 3D Charts</h4>
+                            <p class="fs-12">Donec justo tortor, malesuada vitae faucibus ac, tristique sit amet massa.</p>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="d-flex flex-column justify-content-start h-100 text-center">
+                            <h4 class="mb-3">Feature Rich 2D Charts</h4>
+                            <p class="fs-12">Donec justo tortor, malesuada vitae faucibus ac, tristique sit amet massa.</p>
+                          </div>
+                        </div>
+                        <div class="carousel-item">
+                          <div class="d-flex flex-column justify-content-start h-100 text-center">
+                            <h4 class="mb-3">Feature Rich 1D Charts</h4>
+                            <p class="fs-12">Donec justo tortor, malesuada vitae faucibus ac, tristique sit amet massa.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Indicadores del carrusel (abajo) -->
+                      <div class="carousel-indicators mt-auto" style="position: static;">
+                        <button type="button" data-bs-target="#auth-login" data-bs-slide-to="0" class="bg-primary" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#auth-login" data-bs-slide-to="1" class="bg-primary" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#auth-login" data-bs-slide-to="2" class="active bg-primary" aria-label="Slide 3" aria-current="true"></button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

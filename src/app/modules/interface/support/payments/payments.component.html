@@ -47,7 +47,7 @@
                 <th class="text-start" scope="col" pSortableColumn="date">Fecha</th>
                 <th class="text-start" scope="col" pSortableColumn="person">Nombre</th>
                 <th class="text-start" scope="col" pSortableColumn="lot">Lote</th>
-                <th class="text-start" scope="col" pSortableColumn="status">Estado</th>
+                <th class="text-center" scope="col" pSortableColumn="status">Estado</th>
                 <th class="text-start" scope="col" pSortableColumn="concept">Concepto</th>
                 <th class="text-center" scope="col">Acciones</th>
               </tr>
@@ -57,9 +57,9 @@
                 <td class="text-start">{{vouncher.date | date}}</td>
                 <td class="text-start">{{vouncher.person}}</td>
                 <td class="text-start">{{vouncher.lot}}</td>
-                <td class="text-start">
-                  <div *ngIf="vouncher.status === 'AUDITADO'" class="d-flex align-items-center"><span class="material-symbols-rounded text-success" style="margin-right: 5px;">task_alt</span> {{vouncher.status}}</div>
-                  <div *ngIf="vouncher.status === 'CARGADO'" class="d-flex align-items-center"><span class="material-symbols-rounded text-info" style="margin-right: 5px;">cloud_done</span> {{vouncher.status}}</div>
+                <td class="text-center">
+                  <div *ngIf="vouncher.status === 'CARGADO'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-success" style="margin-right: 5px;">task_alt</span></div>
+                  <div *ngIf="vouncher.status === 'SIN REVISAR'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-danger" style="margin-right: 5px;">error</span></div>
                 </td>
                 <td class="text-start">{{vouncher.concept}}</td>
                 <td class="text-center">

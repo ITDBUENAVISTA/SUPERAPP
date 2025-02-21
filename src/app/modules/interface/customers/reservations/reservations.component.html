@@ -1,1 +1,55 @@
-<p>reservations works!</p>
+<div class="container-fluid">
+
+  <div class="container mb-4">
+    <div class="banner d-flex flex-wrap align-items-center">
+      <div class="d-flex align-items-center me-auto">
+        <img src="/assets/images/logos/logo2.svg" alt="Logo" class="logo">
+      </div>
+      <div class="text-center text-md-end flex-grow-1">
+        <h2 class="text-white m-0">Reservar Zonas Verdes</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+
+
+
+  <!-- <div *ngIf="!loadingReservations" class="container mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+      <div *ngFor="let reservation of reservations" class="col" style="cursor: pointer;" (click)="reserve(reservation)" data-bs-toggle="modal" data-bs-target="#modalFormReserve">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ formatDate(reservation.date) }}</h5>
+
+            <div *ngIf="reservation.reservations.length > 0; else noReservations">
+              <div *ngFor="let reservation of reservation.reservations" class="mb-2 text-center">
+                <span *ngIf="reservation.schedule == '9 A.M - 2 P.M'" class="badge bg-secondary w-100">{{ reservation.schedule }}</span>
+                <span *ngIf="reservation.schedule == '2 P.M - 6 P.M'" class="badge bg-info w-100">{{ reservation.schedule }}</span>
+              </div>
+            </div>
+
+            <ng-template #noReservations>
+              <p class="text-muted">Sin reservas</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loadingReservations" class="container mt-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+      <div *ngFor="let reservation of [1,2,3,4,5,6,7,8]" class="col">
+        <p-skeleton height="12rem" styleClass="mb-2" />
+      </div>
+    </div>
+  </div> -->
+
+</div>
+
+<button #openModalButton style="display: none;" data-bs-toggle="modal" data-bs-target="#modalFormReserve"></button>
+
+<app-reserve-form [customers]="projects" [reservation]="newReservation" (formSubmit)="formSubmit()"></app-reserve-form>

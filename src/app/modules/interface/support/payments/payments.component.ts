@@ -37,7 +37,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   changeStatusVoucher(id: string, status: string){
-    const newStatus = status === 'CARGADO' ? 'AUDITADO' : 'CARGADO';
+    const newStatus = status === 'SIN REVISAR' ? 'CARGADO' : 'SIN REVISAR';
     this.vounchersService.changeStatusVoucher(id, newStatus).subscribe({
       next: () => {
         this.loadAllVounchers();

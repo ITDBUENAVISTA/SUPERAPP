@@ -10,12 +10,12 @@
 
     <!-- Botones de los proyectos visibles -->
 
-    <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2rem" styleClass="mb-2" />
+    <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2.5rem" styleClass="mb-2" />
     <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center mx-3">
       <button
         *ngFor="let project of visibleProjects; let i = index"
         type="button"
-        class="btn btn-primary flex-fill mx-1"
+        class="btn btn-primary flex-fill mx-1 mt-2"
         [ngClass]="{'active': i === indexActive}"
         (click)="selectProject(project); indexActive = i">
         Hacienda Colonia -
@@ -31,8 +31,128 @@
 
 </div>
 
+<div class="row">
+  <div class="col-md-7 d-flex align-items-stretch">
+    <div class="card card-bg h-80 w-100">
+      <div class="card-body">
+        <div>
+          <h4 class="text-white fw-normal mb-1">
+            Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span> <span *ngIf="!loadedProjects" class="fw-bolder">...................</span>
+          </h4>
+          <h6 class="opacity-90 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
+        </div>
+        <div>
+          <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2rem" styleClass="mb-2 mt-2" />
+          <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects"
+            class="mt-2 badge bg-danger d-inline-flex align-items-center gap-2 fs-3">
+            <span class="material-symbols-rounded">error</span>
+            <span class="fw-semibold">{{projecSelected.lateFee.total_amount | lempirasCurrency}}</span>
+          </span>
+          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects" class=" fw-normal text-white mt-1 mb-0">¡Upssss! Tienes pagos pendientes 🫣.</h6>
+          <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
+            class="mt-2 badge bg-success-subtle d-inline-flex align-items-center gap-2 fs-3">
+            <span class="material-symbols-rounded text-success">task_alt</span>
+            <span class="fw-semibold text-success">Estas al día</span>
+          </span>
+          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects" class=" fw-normal text-white mt-1 mb-0">!Felicitaciones!🥳.</h6>
+          <h6 *ngIf="!loadedProjects" class="fw-normal text-white mt-1 mb-0">🤔.</h6>
+        </div>
+        <div>
+          <button [disabled]="!loadedProjects || generatingAccountStatement" (click)="downloadAccountStatement()" type="button" class="d-inline-flex align-items-center justify-content-center btn btn-light rounded-circle btn-lg round-48 mt-2">
+            <span class="material-symbols-rounded text-primary ">download</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="row h-100">
+  <div class="col-md-5 d-flex align-items-stretch">
+    <div class="card h-80 w-100">
+      <div class="card-body">
+        <h4 class="text-center fw-normal">
+          Lote <strong>{{projecSelected.batch}}</strong>
+        </h4>
+        <h3 class="text-center text-primary m-0" style="font-weight: 900; font-style: italic;">
+          {{projecSelected.finance_amount | lempirasCurrency}}
+        </h3>
+        <p class="form-text text-muted text-center mt-0">Monto a Financiar</p>
+        <div>
+          <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
+            <div class="d-flex align-items-center">
+              <span class="material-symbols-rounded text-success me-2">calendar_month</span>
+              <span class="text-muted fw-medium">Tiempo de Pago</span>
+            </div>
+            <div class="text-end">
+              <span class="fw-bolder lh-base">{{projecSelected.quotas}} Meses</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
+            <div class="d-flex align-items-center">
+              <span class="material-symbols-rounded text-danger me-2">paid</span>
+              <span class="text-muted fw-medium">Valor de la Cuota</span>
+            </div>
+            <div class="text-end">
+              <span class="fw-bolder lh-base">{{projecSelected.quota_value | lempirasCurrency}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Pagos Realizados</h5>
+        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" scope="col">N° de Pago</th>
+              <th class="text-center" scope="col">Fecha</th>
+              <th class="text-end" scope="col">Valor</th>
+              <th class="text-center" scope="col">Comprobante</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-pay>
+            <tr>
+              <td class="text-center">{{pay._id}}</td>
+              <td class="text-center">{{pay.date | date}}</td>
+              <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
+              <td class="text-center">
+                <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
+                  style="cursor: pointer" class="material-symbols-rounded text-success">
+                  receipt_long
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr *ngIf="!loadedPaymentes">
+              <td colspan="4" style="text-align: center;">
+                <div class="three-body">
+                  <div class="three-body__dot"></div>
+                  <div class="three-body__dot"></div>
+                  <div class="three-body__dot"></div>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="loadedPaymentes">
+              <td style="text-align: center;" colspan="5">No se encontro información.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+href="https://wa.me/50495573222" target="_blank"
+ style="background-color: #25D366;border-color: #25D366;" type="button">
+  <span class="material-symbols-rounded">forum</span>
+</a>
+
+<!-- <div class="row h-100">
   <div class="col-lg-6 d-flex">
     <div class="card text-white bg-primary overflow-hidden flex-fill custom-card">
       <div class="card-body position-relative z-1">
@@ -47,7 +167,16 @@
           </div>
         </div>
         <h4 class="text-white fw-normal mt-3 pt-4 mb-1">Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span></h4>
+
         <h6 class="opacity-75 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
+        <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects" class="mt-2 badge bg-danger d-inline-flex align-items-center gap-2 fs-3">
+          <span class="material-symbols-rounded">error</span>
+          <span class="fw-semibold">{{projecSelected.lateFee.total_amount | lempirasCurrency}}</span>
+        </span>
+        <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects" class="mt-2 badge bg-success-subtle d-inline-flex align-items-center gap-2 fs-3">
+          <span class="material-symbols-rounded text-success">task_alt</span>
+          <span class="fw-semibold text-success">Estas al día</span>
+        </span>
       </div>
     </div>
   </div>
@@ -90,69 +219,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
-          <ng-template pTemplate="header">
-            <tr>
-              <th class="text-center" scope="col">N° de Pago</th>
-              <th class="text-center" scope="col">Fecha</th>
-              <th class="text-end" scope="col">Valor</th>
-              <th class="text-end" scope="col">Saldo Capital</th>
-              <th class="text-center" scope="col">Comprobante</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-pay>
-            <tr>
-              <td class="text-center">{{pay._id}}</td>
-              <td class="text-center">{{pay.date}}</td>
-              <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
-              <td class="text-end">{{pay.capital_balance | lempirasCurrency }}</td>
-              <td class="text-center">
-                <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
-                  style="cursor: pointer" class="material-symbols-rounded text-success">
-                  receipt_long
-                </span>
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr *ngIf="!loadedPaymentes">
-              <td colspan="5" style="text-align: center;">
-                <output class="spinner-border">
-                  <span class="visually-hidden">Loading...</span>
-                </output>
-              </td>
-            </tr>
-            <tr *ngIf="loadedPaymentes">
-              <td style="text-align: center;" colspan="5">No se encontro información.</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- <p-sidebar [(visible)]="visible" (onHide)="closeSidebar()" (onShow)="showSidebar()">
-  <h3>Seleccione el proyecto</h3>
-  <div class="simplebar-content mb-2" style="cursor: pointer;padding: 0px;" *ngFor="let project of projects;">
-    <a (click)="selectProject(project)" class="px-4 py-3 bg-hover-light-black d-flex align-items-center bg-light-subtle">
-      <div class="ms-6 d-inline-block w-75">
-        <h6 class="mb-1 fw-semibold chat-title">LOTE - {{project.batch}}</h6>
-        <span class="fs-2 text-body-color d-block">Hacienda Colonial</span>
-      </div>
-    </a>
-  </div>
-</p-sidebar>
-
-<button (click)="showSidebar()" type="button"
-  class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn">
-  <span class="material-symbols-rounded" style="font-size: 30px;">explore</span>
-</button> -->
-
-<app-payment-receipt [pay]="paySelected"></app-payment-receipt>
+<app-payment-receipt [pay]="paySelected" [person]="projecSelected.person"></app-payment-receipt>

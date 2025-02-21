@@ -1,0 +1,120 @@
+<div class="modal fade" id="modalFormReserve" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reservar Zona Verde</h5>
+        <button #closeModalForm type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-light-secondary bg-secondary-subtle bg-secondary-subtle text-secondary" role="alert">
+          <h4 class="alert-heading">Atención!</h4>
+
+          <p>
+            Para acceder al área verde, el propietario del terreno debe estar presente y su tarjeta de identidad debe coincidir con la del cliente en la entrada.
+          </p>
+        </div>
+        <form class="form-grid" [formGroup]="formReserve" (ngSubmit)="onSubmit()">
+          <div class="form-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="people" formControlName="people" name="people" placeholder="Personas"
+                      [class.is-invalid]="isInvalidField('people')" [value]="reservation.people">
+                    <label for="people" class="form-label">Personas</label>
+                  </div>
+                  <ng-container *ngFor="let validation of validationMessages['people']">
+                    <div *ngIf="isValid('people', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <select class="form-select" name="schedule" id="schedule" formControlName="schedule"
+                      [class.is-invalid]="isInvalidField('schedule')" [value]="reservation.schedule">
+                      <option value="">Seleccione un horario</option>
+                      <option [value]="'9 A.M - 2 P.M'">9 A.M - 2 P.M</option>
+                      <option [value]="'2 P.M - 6 P.M'">2 P.M - 6 P.M</option>
+                    </select>
+                    <label for="schedule" class="form-label">Horario</label>
+                  </div>
+                  <ng-container *ngFor="let validation of validationMessages['schedule']">
+                    <div *ngIf="isValid('schedule', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <select class="form-select" name="customer" id="customer" formControlName="customer"
+                      [class.is-invalid]="isInvalidField('customer')" [value]="reservation.customer">
+                      <option value="">Seleccione un lote</option>
+                      <option *ngFor="let customer of customers" [value]="customer._id">{{customer.batch}}</option>
+                    </select>
+                    <label for="customer" class="form-label">Lote</label>
+                  </div>
+                  <ng-container *ngFor="let validation of validationMessages['customer']">
+                    <div *ngIf="isValid('customer', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <div class="form-check py-2">
+                    <input name="pool" id="pool" formControlName="pool" [value]="reservation.pool"
+                     class="form-check-input" type="checkbox" value="" id="pool">
+                    <label class="form-check-label" for="pool">
+                      ¿Utilizara la piscina?
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <div class="form-check py-2">
+                    <input name="grill" id="pool" formControlName="grill" [value]="reservation.grill"
+                     class="form-check-input" type="checkbox" value="" id="grill">
+                    <label class="form-check-label" for="grill">
+                      ¿Utilizara el asador?
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div *ngIf="this.formReserve.get('people')?.value > 25" class="alert customize-alert alert-dismissible text-secondary alert-light-secondary bg-secondary-subtle fade show remove-close-icon" role="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <div class="row">
+            <div class="col-1 d-flex align-items-center">
+              <span class="material-symbols-rounded">info</span>
+            </div>
+            <div class="col-11">
+              Para grupos mayores a 25 personas, hay un costo adicional de <strong>L 1,000</strong> que debe cancelar.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button *ngIf="!reservationRegister" (click)="onSubmit()" class="btn btn-success">Registrar</button>
+        <button *ngIf="reservationRegister" class="btn btn-primary" type="button" [disabled]="true">
+          <span class="spinner-border spinner-border-sm"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,13 +8,15 @@ import { PaymentsComponent } from './payments/payments.component';
 import { PaymentFormComponent } from './payments/payment-form/payment-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { ReserveFormComponent } from './reservations/reserve-form/reserve-form.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PaymentsComponent,
     PaymentFormComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    ReserveFormComponent
   ],
   imports: [
     CommonModule,

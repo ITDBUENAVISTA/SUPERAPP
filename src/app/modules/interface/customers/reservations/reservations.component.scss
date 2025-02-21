@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  border-radius: 12px;
+  min-height: 200px; /* Altura mínima uniforme */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.banner {
+  background: linear-gradient(to right, rgba(102, 102, 51, 0.9), rgba(0, 0, 0, 0.7)),
+              url('/assets/images/isotipo.png') center/cover no-repeat;
+  height: 150px;
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 150px;
+}
+
+/* Ajustes en pantallas pequeñas */
+@media (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    padding: 15px;
+  }
+
+  .logo {
+    width: 100px; /* Reduce el tamaño del logo en móviles */
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Ajuste del tamaño del texto */
+  }
+}

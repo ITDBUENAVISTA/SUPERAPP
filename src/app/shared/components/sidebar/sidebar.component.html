@@ -41,6 +41,11 @@
           <span class="material-symbols-rounded">payments</span>
             <span class="hide-menu">Pagos</span>
           </a>
+          <a *ngIf="isRole('11')" aria-expanded="false" routerLink="/clientes/reservaciones" class="sidebar-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <span class="material-symbols-rounded">early_on</span>
+            <span class="hide-menu">Reservar</span>
+          </a>
           <a *ngIf="isRole('01')" aria-expanded="false" routerLink="/soporte/dashboard" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             <span class="material-symbols-rounded">widgets</span>

@@ -11,3 +11,9 @@ export interface Pay {
   corresponding_month: string,
   person: Person
 }
+
+export interface LateFees {
+  month: string,
+  late_fee: number,
+  total_amount: number
+}

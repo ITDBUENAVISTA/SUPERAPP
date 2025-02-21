@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Customer } from 'src/app/core/interfaces/customers/customers.interface';
 import { Pay } from 'src/app/core/interfaces/customers/payments.interface';
@@ -15,6 +16,8 @@ export class DashboardComponent {
   visible: boolean = false;
   showModal: boolean = false;
   indexActive: number = 0;
+
+  generatingAccountStatement: boolean = false;
 
   data: any;
 
@@ -34,7 +37,8 @@ export class DashboardComponent {
 
   constructor(
     private readonly localStorageService: LocalStorageService,
-    private readonly customersService: CustomersService
+    private readonly customersService: CustomersService,
+    private readonly http: HttpClient
   ) {
     this.user = {} as User;
     this.paySelected = {
@@ -68,7 +72,7 @@ export class DashboardComponent {
       },
       payments: []
     }
-   }
+  }
 
   ngOnInit() {
     this.user = this.localStorageService.getUsuario();
@@ -121,33 +125,31 @@ export class DashboardComponent {
     }
   }
 
-  showDialog() {
-    this.showModal = true;
-    // const overlay = document.createElement('div');
-    // overlay.className = 'p-component-overlay p-sidebar-mask p-component-overlay-enter';
-    // overlay.style.zIndex = '1101';
-
-    // // Asegúrate de no agregar múltiples overlays
-    // document.body.appendChild(overlay);
-    // if (!document.querySelector('.p-component-overlay.p-sidebar-mask')) {
-    // }
-  }
-
-  closeSidebar() {
-    this.visible = false;
-    const overlay = document.querySelector('.p-sidebar-mask');
-    if (overlay) {
-      overlay.remove();
-    }
-  }
-
-  showSidebar() {
-    this.visible = true;
-  }
-
   selectProject(project: Customer) {
     this.projecSelected = project;
-    this.closeSidebar();
+  }
+
+  downloadAccountStatement() {
+    this.generatingAccountStatement = true;
+    this.customersService.generateAccountStatement(this.projecSelected._id).subscribe({
+      next: (response: Blob) => {
+        // Crear una URL a partir del Blob
+        const fileURL = URL.createObjectURL(response);
+        // Crear un enlace <a> para forzar la descarga
+        const a = document.createElement('a');
+        a.href = fileURL;
+        a.download = `EstadoDeCuenta-${this.projecSelected.person.name}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(fileURL); // Liberar la memoria
+        this.generatingAccountStatement = false;
+      },
+      error: (error) => {
+        this.generatingAccountStatement = false;
+        console.error('Error al descargar el PDF:', error);
+      }
+    });
   }
 
 }

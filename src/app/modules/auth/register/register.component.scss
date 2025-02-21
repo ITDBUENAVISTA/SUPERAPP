@@ -1,0 +1,29 @@
+.contenedor {
+  position: relative;
+  background-image: url('/assets/images/isotipo.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+
+.columna-derecha {
+  background-image: url('/assets/images/dron.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  transition: width 0.3s ease-in-out, border-radius 0.3s ease-in-out;
+}
+
+.carousel-indicators .active {
+  width: 30px; /* Hace que parezca una píldora */
+  height: 12px;
+  border-radius: 6px; /* Ajusta los bordes redondeados */
+}
+
