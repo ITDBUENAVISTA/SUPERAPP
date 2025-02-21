@@ -10,6 +10,7 @@ import { UiServiceService } from 'src/app/shared/services/ui-service.service';
 export class LoginComponent {
   usuarioIngreso;
   logging: boolean = false;
+  showPassword: boolean = false;
 
   constructor (
     private readonly authService: AuthService,
@@ -24,9 +25,7 @@ export class LoginComponent {
   ingreso(){
     this.logging = true;
     if (this.usuarioIngreso.username == '' || this.usuarioIngreso.password == '') {
-      // return this.uiService.alertaError('El usuario y la contraseña son obligatorios.')
-      console.log("El usuario y la contraseña son obligatorios");
-
+      return this.uiService.alertaError('El usuario y la contraseña son obligatorios.');
     }
 
     this.authService.login(this.usuarioIngreso).subscribe({
@@ -41,6 +40,10 @@ export class LoginComponent {
       }
     });
 
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
 }

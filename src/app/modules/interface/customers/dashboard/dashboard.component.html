@@ -1,34 +1,30 @@
-<div class="container-fluid">
-
-
-  <div class="d-flex align-items-center mt-3"
+<div class="d-flex align-items-center mt-3 mb-2"
   [ngClass]="{'justify-content-between': loadedProjects && projects.length > 2,'justify-content-center': !(loadedPaymentes && projects.length > 2)}">
-    <!-- Botón de Previous -->
-    <button *ngIf="loadedProjects && (projects.length > 2)" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center" (click)="previousPage()" [disabled]="currentPage === 0">
-      <span class="material-symbols-rounded">chevron_left</span>
-    </button>
+  <!-- Botón de Previous -->
+  <button *ngIf="loadedProjects && (projects.length > 2)" type="button"
+    class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center"
+    (click)="previousPage()" [disabled]="currentPage === 0">
+    <span class="material-symbols-rounded">chevron_left</span>
+  </button>
 
-    <!-- Botones de los proyectos visibles -->
+  <!-- Botones de los proyectos visibles -->
 
-    <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2.5rem" styleClass="mb-2" />
-    <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center mx-3">
-      <button
-        *ngFor="let project of visibleProjects; let i = index"
-        type="button"
-        class="btn btn-primary flex-fill mx-1 mt-2"
-        [ngClass]="{'active': i === indexActive}"
-        (click)="selectProject(project); indexActive = i">
-        Hacienda Colonia -
-        {{ project.batch }}
-      </button>
-    </div>
-
-    <!-- Botón de Next -->
-    <button *ngIf="loadedProjects && (projects.length > 2)" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center" (click)="nextPage()" [disabled]="(currentPage + 1) * itemsPerPage >= projects.length">
-      <span class="material-symbols-rounded">chevron_right</span>
+  <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2.5rem" styleClass="mb-2" />
+  <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center mx-3">
+    <button *ngFor="let project of visibleProjects; let i = index" type="button"
+      class="btn btn-primary flex-fill mx-1 mt-2" [ngClass]="{'active': i === indexActive}"
+      (click)="selectProject(project); indexActive = i">
+      Hacienda Colonia -
+      {{ project.batch }}
     </button>
   </div>
 
+  <!-- Botón de Next -->
+  <button *ngIf="loadedProjects && (projects.length > 2)" type="button"
+    class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center"
+    (click)="nextPage()" [disabled]="(currentPage + 1) * itemsPerPage >= projects.length">
+    <span class="material-symbols-rounded">chevron_right</span>
+  </button>
 </div>
 
 <div class="row">
@@ -37,7 +33,8 @@
       <div class="card-body">
         <div>
           <h4 class="text-white fw-normal mb-1">
-            Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span> <span *ngIf="!loadedProjects" class="fw-bolder">...................</span>
+            Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span> <span *ngIf="!loadedProjects"
+              class="fw-bolder">...................</span>
           </h4>
           <h6 class="opacity-90 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
         </div>
@@ -48,19 +45,26 @@
             <span class="material-symbols-rounded">error</span>
             <span class="fw-semibold">{{projecSelected.lateFee.total_amount | lempirasCurrency}}</span>
           </span>
-          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects" class=" fw-normal text-white mt-1 mb-0">¡Upssss! Tienes pagos pendientes 🫣.</h6>
+          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects"
+            class=" fw-normal text-white mt-1 mb-0">¡Upssss! Tienes pagos pendientes 🫣.</h6>
           <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
             class="mt-2 badge bg-success-subtle d-inline-flex align-items-center gap-2 fs-3">
             <span class="material-symbols-rounded text-success">task_alt</span>
             <span class="fw-semibold text-success">Estas al día</span>
           </span>
-          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects" class=" fw-normal text-white mt-1 mb-0">!Felicitaciones!🥳.</h6>
+          <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
+            class=" fw-normal text-white mt-1 mb-0">!Felicitaciones!🥳.</h6>
           <h6 *ngIf="!loadedProjects" class="fw-normal text-white mt-1 mb-0">🤔.</h6>
         </div>
         <div>
-          <button [disabled]="!loadedProjects || generatingAccountStatement" (click)="downloadAccountStatement()" type="button" class="d-inline-flex align-items-center justify-content-center btn btn-light rounded-circle btn-lg round-48 mt-2">
+          <button *ngIf="!generatingAccountStatement" [disabled]="!loadedProjects" (click)="downloadAccountStatement()"
+            type="button"
+            class="d-inline-flex align-items-center justify-content-center btn btn-light rounded-circle btn-lg round-48 mt-2">
             <span class="material-symbols-rounded text-primary ">download</span>
           </button>
+          <div *ngIf="generatingAccountStatement" class="spinner-border mt-2">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -104,7 +108,8 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Pagos Realizados</h5>
-        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
+        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped"
+          [tableStyle]="{'min-width': '20rem'}">
           <ng-template pTemplate="header">
             <tr>
               <th class="text-center" scope="col">N° de Pago</th>
@@ -147,78 +152,9 @@
 </div>
 
 <a class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
-href="https://wa.me/50495573222" target="_blank"
- style="background-color: #25D366;border-color: #25D366;" type="button">
+  href="https://wa.me/50495573222" target="_blank" style="background-color: #25D366;border-color: #25D366;"
+  type="button">
   <span class="material-symbols-rounded">forum</span>
 </a>
-
-<!-- <div class="row h-100">
-  <div class="col-lg-6 d-flex">
-    <div class="card text-white bg-primary overflow-hidden flex-fill custom-card">
-      <div class="card-body position-relative z-1">
-        <div class="row">
-          <div class="col-md-6">
-            <h2 class="text-white">{{projecSelected.batch}}</h2>
-          </div>
-          <div class="col-md-6 d-flex justify-content-end">
-            <span class="mb-1 badge text-bg-success">
-              <h4 class="text-white m-0">{{projecSelected.finance_amount | lempirasCurrency}}</h4>
-            </span>
-          </div>
-        </div>
-        <h4 class="text-white fw-normal mt-3 pt-4 mb-1">Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span></h4>
-
-        <h6 class="opacity-75 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
-        <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects" class="mt-2 badge bg-danger d-inline-flex align-items-center gap-2 fs-3">
-          <span class="material-symbols-rounded">error</span>
-          <span class="fw-semibold">{{projecSelected.lateFee.total_amount | lempirasCurrency}}</span>
-        </span>
-        <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects" class="mt-2 badge bg-success-subtle d-inline-flex align-items-center gap-2 fs-3">
-          <span class="material-symbols-rounded text-success">task_alt</span>
-          <span class="fw-semibold text-success">Estas al día</span>
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-6">
-    <div class="row h-100">
-      <div class="col-md-6 d-flex">
-        <div class="card bg-success-subtle overflow-hidden shadow-none flex-fill">
-          <div class="card-body px-4">
-            <div class="d-flex align-items-center justify-content-between mb-8">
-              <div>
-                <span class="text-dark-light fw-semibold fs-12">Tiempo de Pago</span>
-              </div>
-              <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
-                <span class="material-symbols-rounded text-success">calendar_month</span>
-              </span>
-            </div>
-            <div class="d-flex align-items-center justify-content-between mb-6">
-              <h4 class="mb-0 fw-medium">{{projecSelected.quotas}} meses</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 d-flex">
-        <div class="card bg-danger-subtle overflow-hidden shadow-none flex-fill">
-          <div class="card-body px-4">
-            <div class="d-flex align-items-center justify-content-between mb-">
-              <div>
-                <span class="text-dark-light fw-semibold">Valor de la Cuota</span>
-              </div>
-              <span class="round-48 d-flex align-items-center justify-content-center bg-white rounded">
-                <span class="material-symbols-rounded text-danger">paid</span>
-              </span>
-            </div>
-            <div class="d-flex align-items-center justify-content-between mb-6">
-              <h4>{{projecSelected.quota_value | lempirasCurrency}}</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <app-payment-receipt [pay]="paySelected" [person]="projecSelected.person"></app-payment-receipt>

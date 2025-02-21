@@ -51,7 +51,6 @@ export class ReservationsComponent implements OnInit {
   initCalendar() {
     const today = new Date(); // Fecha actual
     const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1); // Sumar 1 día
 
     const nextYear = new Date(today);
     nextYear.setFullYear(today.getFullYear() + 1);
