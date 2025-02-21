@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListVounchers } from 'src/app/core/interfaces/vounchers/vounchers.interfaces';
 import { VounchersService } from 'src/app/core/services/vounchers.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-payments',
@@ -8,6 +9,7 @@ import { VounchersService } from 'src/app/core/services/vounchers.service';
   styleUrls: ['./payments.component.scss']
 })
 export class PaymentsComponent implements OnInit {
+  public urlServer = environment.urlComprobantes;
 
   vounchers: ListVounchers[] = [];
   loadedVounchers: boolean = false;
@@ -32,7 +34,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   openVouncher(file: string) {
-    const url = `http://localhost:8002/comprobantes/${file}`;
+    const url = `${this.urlServer}${file}`;
     window.open(url, '_blank');
   }
 

@@ -92,7 +92,7 @@
                       <div *ngIf="vouncher.status === 'SIN REVISAR'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-danger" style="margin-right: 5px;">error</span></div>
                     </td>
                     <td class="text-center">
-                      <img [src]="'http://localhost:8002/comprobantes/'+vouncher.file" alt="" class="rounded" width="50"
+                      <img [src]="urlServer+vouncher.file" alt="" class="rounded" width="50"
                         height="50">
                     </td>
                   </tr>

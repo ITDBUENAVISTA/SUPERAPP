@@ -7,6 +7,7 @@ import { CustomersService } from 'src/app/core/services/customers.service';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { VounchersService } from 'src/app/core/services/vounchers.service';
 import { UiServiceService } from 'src/app/shared/services/ui-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-payments',
@@ -14,6 +15,8 @@ import { UiServiceService } from 'src/app/shared/services/ui-service.service';
   styleUrls: ['./payments.component.scss']
 })
 export class PaymentsComponent {
+
+  public urlServer = environment.urlComprobantes;
 
   signal = new Subject<void>();
 
