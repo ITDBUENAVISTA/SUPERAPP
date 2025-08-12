@@ -62,6 +62,11 @@ export class ReservationsComponent implements OnInit {
         center: 'title',
         right: ''
       },
+        buttonText: {
+        prev: '<',
+        next: '>',
+        today: 'Hoy'
+      },
       editable: true,
       selectable: true,
       validRange: {

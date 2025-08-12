@@ -53,10 +53,10 @@
             <span class="fw-semibold text-success">Estas al día</span>
           </span>
           <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
-            class=" fw-normal text-white mt-1 mb-0">!Felicitaciones!🥳.</h6>
+            class=" fw-normal text-white mt-2 mb-0">!Felicitaciones!🥳.</h6>
           <h6 *ngIf="!loadedProjects" class="fw-normal text-white mt-1 mb-0">🤔.</h6>
         </div>
-        <div>
+        <div class="d-flex justify-content-end">
           <button *ngIf="!generatingAccountStatement" [disabled]="!loadedProjects" (click)="downloadAccountStatement()"
             type="button"
             class="d-inline-flex align-items-center justify-content-center btn btn-light rounded-circle btn-lg round-48 mt-2">
@@ -76,14 +76,14 @@
         <h4 class="text-center fw-normal">
           Lote <strong>{{projecSelected.batch}}</strong>
         </h4>
-        <h3 class="text-center text-primary m-0" style="font-weight: 900; font-style: italic;">
+        <h3 class="text-center text-black m-0" style="font-weight: 900; font-style: italic;">
           {{projecSelected.finance_amount | lempirasCurrency}}
         </h3>
         <p class="form-text text-muted text-center mt-0">Monto a Financiar</p>
         <div>
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
             <div class="d-flex align-items-center">
-              <span class="material-symbols-rounded text-success me-2">calendar_month</span>
+              <span class="material-symbols-rounded text-primary me-2">calendar_month</span>
               <span class="text-muted fw-medium">Tiempo de Pago</span>
             </div>
             <div class="text-end">
@@ -92,7 +92,7 @@
           </div>
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
             <div class="d-flex align-items-center">
-              <span class="material-symbols-rounded text-danger me-2">paid</span>
+              <span class="material-symbols-rounded text-secondary me-2">paid</span>
               <span class="text-muted fw-medium">Valor de la Cuota</span>
             </div>
             <div class="text-end">
@@ -125,7 +125,7 @@
               <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
               <td class="text-center">
                 <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
-                  style="cursor: pointer" class="material-symbols-rounded text-success">
+                  style="cursor: pointer" class="material-symbols-rounded text-primary">
                   receipt_long
                 </span>
               </td>
@@ -152,7 +152,7 @@
 </div>
 
 <a class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
-  href="https://wa.me/50495573222" target="_blank" style="background-color: #25D366;border-color: #25D366;"
+  href="https://wa.me/50492822663" target="_blank" style="background-color: #98c640;border-color: #98c640;"
   type="button">
   <span class="material-symbols-rounded">forum</span>
 </a>

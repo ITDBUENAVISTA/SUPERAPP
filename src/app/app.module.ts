@@ -9,6 +9,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ServerErrorInterceptor } from './core/interceptors/server-error.interceptor';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { ServerErrorInterceptor } from './core/interceptors/server-error.interce
     HttpClientModule,
     AppRoutingModule,
     ComponentsModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    FullCalendarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

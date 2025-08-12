@@ -1,0 +1,44 @@
+<div class="modal-content">
+  <!-- Header -->
+  <div class="modal-header">
+    <h5 class="modal-title">Detalles de la Reserva</h5>
+    <button type="button" mat-icon-button (click)="close()" aria-label="Cerrar">
+      ✖
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="modal-body">
+    <div class="row">
+      <!-- Columna izquierda -->
+      <div class="col-md-6">
+        <p><strong>📆 Fecha:</strong> {{ reservation.date | date:'MMM d, y' }}</p>
+        <p><strong>⏰ Horario:</strong> {{ reservation.schedule }}</p>
+        <p><strong>👥 Personas:</strong> {{ reservation.people ?? 1 }}</p>
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="col-md-6">
+        <p><strong>🏊‍♂️ Piscina:</strong> {{ reservation.pool ? 'Sí' : 'No' }}</p>
+        <p><strong>🔥 Parrilla:</strong> {{ reservation.grill ? 'Sí' : 'No' }}</p>
+        <p><strong>🏘️ Proyecto:</strong> {{ reservation.customer?.batch || '' }}</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Información del cliente -->
+    <div class="text-center">
+      <h4 class="text-secondary">Información del Cliente</h4>
+      <p><strong>🌲 Lote:</strong> {{ reservation.customer?.batch }}</p>
+      <p><strong>📛 Nombre:</strong> {{ reservation.customer?.person?.name }}</p>
+      <p><strong>📞 Teléfono:</strong> {{ reservation.customer?.person?.phone }}</p>
+      <p><strong>✉️ Correo:</strong> {{ reservation.customer?.person?.email }}</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button mat-raised-button class="bg-secondary text-white" (click)="close()">Cerrar</button>
+  </div>
+</div>

@@ -8,6 +8,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaymentsComponent } from './payments/payments.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+
+import { ReservationDetailModalComponent } from './reservations/reservation-detail-modal/reservation-detail-modal.component';
+
 
 
 
@@ -16,14 +25,20 @@ import { PaymentsComponent } from './payments/payments.component';
     DashboardComponent,
     UsersComponent,
     UserFormComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    ReservationsComponent,
+    ReservationDetailModalComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     SupportRoutingModule,
-    SharedModule
+    SharedModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule
   ]
 })
 export class SupportModule { }

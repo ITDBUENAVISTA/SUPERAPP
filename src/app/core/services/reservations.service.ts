@@ -15,6 +15,10 @@ export class ReservationsService {
     private readonly http: HttpClient
   ) { }
 
+  getReservas(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.reservationsURL}/previus-reservations`);
+  }
+
   createReservation(reservation: Reservation): Observable<ResponseApi>{
     return this.http.post<ResponseApi>(`${this.reservationsURL}`, reservation);
   }

@@ -16,6 +16,8 @@ export class UserFormComponent {
 
   private subscription!: Subscription;
 
+  selectedRoles: string[] = [];
+
   @Input()
   signal!: Subject<void>;
 
@@ -31,10 +33,7 @@ export class UserFormComponent {
   @Output()
   hasUnsavedChangesForm: EventEmitter<boolean>;
 
-  rols = [
-    { name: 'Soporte', rols: '01,03' },
-    { name: 'Cliente', rols: '02' }
-  ];
+  @Output() close = new EventEmitter<void>();
 
   persons: Person[] = [];
 
@@ -42,6 +41,16 @@ export class UserFormComponent {
   formSubmit: EventEmitter<User>;
 
   formUser: FormGroup;
+
+  toggleRole(roleCode: string, event: any) {
+  if (event.target.checked) {
+    this.selectedRoles.push(roleCode);
+  } else {
+    this.selectedRoles = this.selectedRoles.filter(r => r !== roleCode);
+  }
+
+  this.formUser.get('rols')?.setValue(this.selectedRoles.join(','));
+}
 
   constructor(
     private readonly fb: FormBuilder,
@@ -97,7 +106,7 @@ export class UserFormComponent {
   }
 
   closeModalForm(): void {
-    this.closeModal.nativeElement.click();
+    this.close.emit();
   }
 
 
@@ -110,11 +119,12 @@ export class UserFormComponent {
   }
 
   private initForm(): void {
+    this.selectedRoles = this.user?.rols ? this.user.rols.split(',') : [];
     this.formUser.reset({
       _id: this.user?._id || '',
       username: this.user?.username || '',
       password: this.user?.password || '',
-      rols: this.user?.rols || '',
+      rols: this.selectedRoles.join(','),
       person: this.user?.person?._id || undefined
     });
   }
@@ -143,7 +153,10 @@ export class UserFormComponent {
   }
 
   onActiveButton(): boolean {
-    return this.formUser.valid && this.formUser.dirty;
+    if(!this.formUser.valid) console.log("InValid")
+    if(this.formUser.dirty) console.log("dirty")
+    console.log(this.formUser)
+    return this.formUser.valid && (this.isEdit ? this.formUser.dirty : true);
   }
 
   onInputChange(): void {
@@ -157,10 +170,34 @@ export class UserFormComponent {
     }
 
     if (this.onActiveButton()) {
-      this.formSubmit.emit(this.getUserFormValues());
+      const values = this.getUserFormValues();
+      values.rols = this.selectedRoles.join(',');
+      this.formSubmit.emit(values);
+
+      // Limpiamos el formulario SOLO si no es edición
+      if (!this.isEdit) {
+        this.resetForm();
+      }
+
+      // Cerramos modal
+      this.closeModalForm();
     } else {
       this.formUser.markAllAsTouched();
     }
+  }
+  
+  private resetForm(): void {
+
+     // Limpiar array de roles
+    this.selectedRoles = [];
+
+    // Resetear formulario
+    this.formUser.reset();
+
+    // Asegurar que se limpien visualmente los checkboxes
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+    checkboxes.forEach(chk => chk.checked = false);
+      
   }
 
   onCancel(): void {

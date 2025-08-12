@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="card card-body py-3 mb-3">
+    <div class="row align-items-center">
+      <div class="col-12">
+        <div class="d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-4 mb-sm-0 card-title">Reservas</h4>
+          <nav aria-label="breadcrumb" class="ms-auto">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item d-flex align-items-center">
+                <a class="text-muted text-decoration-none d-flex" routerLink="/soporte/dashboard">
+                  <span class="material-symbols-rounded">home</span>
+                </a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <span class="badge fw-medium fs-2 bg-primary-subtle text-primary">Reservas</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Calendario -->
+    <div class="col-lg-7 mb-3">
+      <div class="card p-3">
+        <h5>Calendario de reservas</h5>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+    </div>
+
+    <!-- Reservas anteriores -->
+    <div class="col-lg-5 mb-3">
+      <div class="card p-3">
+        <h5>Reservas anteriores</h5>
+        <p-table
+          [value]="previousReservations"
+          [paginator]="true"
+          [rows]="5"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          styleClass="p-datatable-striped"
+          responsiveLayout="scroll"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="date">
+                Fecha
+                <p-sortIcon field="date"></p-sortIcon>
+              </th>
+              <th>Horario</th>
+              <th>Cliente</th>
+              <th>Proyecto</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-r>
+            <tr>
+              <td>{{ r.date | date:'mediumDate' }}</td>
+              <td>{{ r.schedule }}</td>
+              <td>{{ r.customer.person.name }}</td>
+              <td>{{ r.customer.batch }}</td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="4" class="text-center">
+                No se encontró información.
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

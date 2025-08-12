@@ -1,9 +1,9 @@
 <div class="banner d-flex flex-wrap align-items-center mb-4">
-  <div class="d-flex align-items-center me-auto">
-    <img src="/assets/images/logos/logo2.svg" alt="Logo" class="logo">
+  <div class="text-center text-md-start flex-grow-1 ms-2">
+    <h1 class="text-white m-0">Pagos Registrados</h1>
   </div>
-  <div class="text-center text-md-end flex-grow-1">
-    <h2 class="text-white m-0">Pagos Registrados</h2>
+  <div class="d-flex align-items-center me-auto">
+    <img src="/assets/images/logos/Logo - Tu Inmueble 2025_1.png" alt="Logo" class="logo">
   </div>
 </div>
 
@@ -152,8 +152,7 @@
             [ngClass]="{'bg-light-subtle': project._id === projecSelected._id}">
             <div class="ms-3 d-inline-block w-75">
               <h6 class="mb-0 invoice-customer">{{project.batch}}</h6>
-              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">Hacienda
-                Colonial</span>
+              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">{{project}}</span>
             </div>
           </a>
         </li>
