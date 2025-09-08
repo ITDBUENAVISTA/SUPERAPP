@@ -31,22 +31,22 @@
           <span class="hide-menu">Home</span>
         </li>
         <li class="sidebar-item">
-          <a *ngIf="isRole('02')" aria-expanded="false" routerLink="/clientes/dashboard" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('02')" (click)="menuMovil()" aria-expanded="false" routerLink="/clientes/dashboard" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             <span class="material-symbols-rounded">widgets</span>
             <span class="hide-menu">Dashboard</span>
           </a>
-          <a *ngIf="isRole('09')" aria-expanded="false" routerLink="/clientes/pagos" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('09')" (click)="menuMovil()" aria-expanded="false" routerLink="/clientes/pagos" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">payments</span>
             <span class="hide-menu">Pagos</span>
           </a>
-          <a *ngIf="isRole('11')" aria-expanded="false" routerLink="/clientes/reservaciones" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('11')" (click)="menuMovil()" aria-expanded="false" routerLink="/clientes/reservaciones" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">early_on</span>
             <span class="hide-menu">Reservar</span>
           </a>
-          <a *ngIf="isRole('01')" aria-expanded="false" routerLink="/soporte/dashboard" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('01')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/dashboard" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             <span class="material-symbols-rounded">widgets</span>
             <span class="hide-menu">Dashboard</span>
@@ -59,17 +59,17 @@
           <span class="hide-menu">SOPORTE</span>
         </li>
         <li class="sidebar-item">
-          <a *ngIf="isRole('03')" aria-expanded="false" routerLink="/soporte/usuarios" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('03')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/usuarios" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             <span class="material-symbols-rounded">group</span>
             <span class="hide-menu">Usuarios</span>
           </a>
-          <a *ngIf="isRole('10')" aria-expanded="false" routerLink="/soporte/pagos" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('10')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/pagos" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">payments</span>
             <span class="hide-menu">Pagos</span>
           </a>
-          <a *ngIf="isRole('10')" aria-expanded="false" routerLink="/soporte/reservaciones" class="sidebar-link" routerLinkActive="active"
+          <a *ngIf="isRole('10')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/reservaciones" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">early_on</span>
             <span class="hide-menu">Reservas</span>

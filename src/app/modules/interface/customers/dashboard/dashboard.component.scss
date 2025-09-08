@@ -58,3 +58,24 @@
   flex-direction: column;
   font-size: 14px;
 }
+
+@media (max-width: 767px) {
+  .card-body {
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  table th, table td {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.5rem;
+  }
+}
+

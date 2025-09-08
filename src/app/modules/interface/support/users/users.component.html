@@ -3,7 +3,7 @@
   <div class="card card-body py-3">
     <div class="row align-items-center">
       <div class="col-12">
-        <div class="d-sm-flex align-items-center justify-space-between">
+        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between">
           <h4 class="mb-4 mb-sm-0 card-title">Usuarios</h4>
           <nav aria-label="breadcrumb" class="ms-auto">
             <ol class="breadcrumb m-0">
@@ -25,8 +25,9 @@
   </div>
 
   <div class="card card-body">
-    <div class="row">
-      <div class="col-md-4 col-xl-3">
+    <div class="row g-3">
+      <!-- Buscador -->
+      <div class="col-12 col-md-4 col-xl-3">
         <form class="position-relative">
           <input [appFilterTables]="tabla" type="text" class="form-control product-search ps-5" id="input-search"
             placeholder="Buscar usuario">
@@ -34,7 +35,8 @@
             class="material-symbols-rounded position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3">search</span>
         </form>
       </div>
-      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+      <!-- Botón -->
+      <div class="col-12 col-md-8 col-xl-9 d-flex justify-content-md-end justify-content-center">
         <a data-bs-toggle="modal" (click)="clearUser();isEdit=false" data-bs-target="#modalFormUser"
           id="btn-add-contact" class="btn btn-primary d-flex align-items-center">
           <i class="ti ti-users text-white me-1 fs-5"></i> Registrar Usuario
@@ -46,7 +48,7 @@
   <div class="card w-100 position-relative overflow-hidden">
     <div class="card-body p-4">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 table-responsive">
           <p-table #tabla [value]="users" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}"
             [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true"
             [globalFilterFields]="['name','username','email','phone']"
