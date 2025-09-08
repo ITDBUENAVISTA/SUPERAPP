@@ -9,7 +9,7 @@
         <form class="form-grid" [formGroup]="formVouncher" (ngSubmit)="onSubmit()">
           <div class="form-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <div class="mb-3">
                   <input type="date" class="form-control" id="date" placeholder="Ingresa la fecha del pago"
                     formControlName="date" name="date" [class.is-invalid]="isInvalidField('date')"
@@ -23,7 +23,7 @@
                   </ng-container>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-12 col-md-6">
                 <div class="mb-3">
                   <input [readOnly]="isEdit" type="text" class="form-control" id="concept"
                     placeholder="Ingresa el concepto del pago" formControlName="concept" name="concept"
@@ -37,7 +37,7 @@
                   </ng-container>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-12">
                 <div class="mb-3">
                   <input #vouncherFile [readOnly]="isEdit" type="file" class="form-control" id="file"
                     placeholder="Seleccione el comprobante" formControlName="file" name="file" accept=".pdf, image/*"

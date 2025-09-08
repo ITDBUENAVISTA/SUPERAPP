@@ -36,3 +36,16 @@
   border-bottom-left-radius: 15px;
 }
 
+@media (max-width: 767px) {
+  .login-container {
+    min-height: 80vh; /* ocupar altura completa */
+  }
+
+  .login-container .col-12 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+

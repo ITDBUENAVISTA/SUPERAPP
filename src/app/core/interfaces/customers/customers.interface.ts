@@ -10,5 +10,7 @@ export interface Customer {
   type: string,
   person: Person;
   payments: Pay[];
-  lateFee?: LateFees
+  lateFee?: LateFees;
+  capital_balance: number,
+  reservation_date:string,
 }

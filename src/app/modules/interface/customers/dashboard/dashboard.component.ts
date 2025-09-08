@@ -63,6 +63,8 @@ export class DashboardComponent {
       quota_value: 0,
       quotas: 0,
       finance_amount: 0,
+      capital_balance:0,
+      reservation_date:'',
       type: '',
       person: {
         _id: '',

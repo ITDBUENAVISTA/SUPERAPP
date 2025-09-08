@@ -8,14 +8,12 @@
   </button>
 
   <!-- Botones de los proyectos visibles -->
-
   <p-skeleton *ngIf="!loadedProjects" width="10rem" height="2.5rem" styleClass="mb-2" />
-  <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center mx-3">
+  <div *ngIf="loadedProjects" class="d-flex flex-wrap justify-content-center gap-2 mx-3">
     <button *ngFor="let project of visibleProjects; let i = index" type="button"
-      class="btn btn-primary flex-fill mx-1 mt-2" [ngClass]="{'active': i === indexActive}"
+      class="btn btn-primary flex-grow-1 d-flex justify-content-center" [ngClass]="{'active': i === indexActive}"
       (click)="selectProject(project); indexActive = i">
-      Hacienda Colonia -
-      {{ project.batch }}
+      Hacienda Colonial - {{ project.batch }}
     </button>
   </div>
 
@@ -28,13 +26,14 @@
 </div>
 
 <div class="row">
-  <div class="col-md-7 d-flex align-items-stretch">
+  <!-- Card izquierda -->
+  <div class="col-12 col-lg-7 mb-3 d-flex align-items-stretch">
     <div class="card card-bg h-80 w-100">
       <div class="card-body">
         <div>
           <h4 class="text-white fw-normal mb-1">
-            Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span> <span *ngIf="!loadedProjects"
-              class="fw-bolder">...................</span>
+            Hola, <span class="fw-bolder">{{projecSelected.person.name}}</span>
+            <span *ngIf="!loadedProjects" class="fw-bolder">...................</span>
           </h4>
           <h6 class="opacity-90 fw-normal text-white mb-0">Conoce tu estado de cuenta.</h6>
         </div>
@@ -46,21 +45,21 @@
             <span class="fw-semibold">{{projecSelected.lateFee.total_amount | lempirasCurrency}}</span>
           </span>
           <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount > 0 && loadedProjects"
-            class=" fw-normal text-white mt-1 mb-0">¡Upssss! Tienes pagos pendientes 🫣.</h6>
+            class="fw-normal text-white mt-1 mb-0">¡Upssss! Tienes pagos pendientes 🫣.</h6>
           <span *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
             class="mt-2 badge bg-success-subtle d-inline-flex align-items-center gap-2 fs-3">
             <span class="material-symbols-rounded text-success">task_alt</span>
             <span class="fw-semibold text-success">Estas al día</span>
           </span>
           <h6 *ngIf="projecSelected.lateFee && projecSelected.lateFee.total_amount <= 0 && loadedProjects"
-            class=" fw-normal text-white mt-2 mb-0">!Felicitaciones!🥳.</h6>
+            class="fw-normal text-white mt-2 mb-0">!Felicitaciones!🥳.</h6>
           <h6 *ngIf="!loadedProjects" class="fw-normal text-white mt-1 mb-0">🤔.</h6>
         </div>
         <div class="d-flex justify-content-end">
           <button *ngIf="!generatingAccountStatement" [disabled]="!loadedProjects" (click)="downloadAccountStatement()"
             type="button"
             class="d-inline-flex align-items-center justify-content-center btn btn-light rounded-circle btn-lg round-48 mt-2">
-            <span class="material-symbols-rounded text-primary ">download</span>
+            <span class="material-symbols-rounded text-primary">download</span>
           </button>
           <div *ngIf="generatingAccountStatement" class="spinner-border mt-2">
             <span class="visually-hidden">Loading...</span>
@@ -70,16 +69,16 @@
     </div>
   </div>
 
-  <div class="col-md-5 d-flex align-items-stretch">
+  <!-- Card derecha -->
+  <div class="col-12 col-lg-5 mb-3 d-flex align-items-stretch">
     <div class="card h-80 w-100">
       <div class="card-body">
-        <h4 class="text-center fw-normal">
-          Lote <strong>{{projecSelected.batch}}</strong>
-        </h4>
-        <h3 class="text-center text-black m-0" style="font-weight: 900; font-style: italic;">
-          {{projecSelected.finance_amount | lempirasCurrency}}
+        <h4 class="text-center fw-normal">Lote <strong>{{projecSelected.batch}}</strong></h4>
+        <h3 class="text-center text-black m-0 fw-bold" style="font-style: italic; font-size: clamp(1.5rem, 5vw, 2.5rem);">
+          {{projecSelected.capital_balance | lempirasCurrency}}
         </h3>
-        <p class="form-text text-muted text-center mt-0">Monto a Financiar</p>
+        <p class="form-text text-muted text-center mt-0">Saldo Capital</p>
+
         <div>
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
             <div class="d-flex align-items-center">
@@ -90,6 +89,7 @@
               <span class="fw-bolder lh-base">{{projecSelected.quotas}} Meses</span>
             </div>
           </div>
+
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
             <div class="d-flex align-items-center">
               <span class="material-symbols-rounded text-secondary me-2">paid</span>
@@ -99,62 +99,78 @@
               <span class="fw-bolder lh-base">{{projecSelected.quota_value | lempirasCurrency}}</span>
             </div>
           </div>
+
+          <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
+            <div class="d-flex align-items-center">
+              <span class="material-symbols-rounded text-bg-light-success me-2">today</span>
+              <span class="text-muted fw-medium">Fecha de reserva</span>
+            </div>
+            <div class="text-end">
+              <span class="fw-bolder lh-base">{{ projecSelected.reservation_date | date:'longDate' }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Tabla -->
   <div class="col-12">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title mb-4">Pagos Realizados</h5>
-        <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped"
-          [tableStyle]="{'min-width': '20rem'}">
-          <ng-template pTemplate="header">
-            <tr>
-              <th class="text-center" scope="col">N° de Pago</th>
-              <th class="text-center" scope="col">Fecha</th>
-              <th class="text-end" scope="col">Valor</th>
-              <th class="text-center" scope="col">Comprobante</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-pay>
-            <tr>
-              <td class="text-center">{{pay._id}}</td>
-              <td class="text-center">{{pay.date | date}}</td>
-              <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
-              <td class="text-center">
-                <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
-                  style="cursor: pointer" class="material-symbols-rounded text-primary">
-                  receipt_long
-                </span>
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr *ngIf="!loadedPaymentes">
-              <td colspan="4" style="text-align: center;">
-                <div class="three-body">
-                  <div class="three-body__dot"></div>
-                  <div class="three-body__dot"></div>
-                  <div class="three-body__dot"></div>
-                </div>
-              </td>
-            </tr>
-            <tr *ngIf="loadedPaymentes">
-              <td style="text-align: center;" colspan="5">No se encontro información.</td>
-            </tr>
-          </ng-template>
-        </p-table>
+        <div class="table-responsive">
+          <p-table [value]="projecSelected.payments" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}">
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-center" scope="col">N° de Pago</th>
+                <th class="text-center" scope="col">Fecha</th>
+                <th class="text-center" scope="col">Concepto</th>
+                <th class="text-end" scope="col">Valor</th>
+                <th class="text-end" scope="col">Mes Correspondiente</th>
+                <th class="text-center" scope="col">Comprobante</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-pay>
+              <tr>
+                <td class="text-center">{{pay._id}}</td>
+                <td class="text-center">{{pay.date | date}}</td>
+                <td class="text-center">{{pay.concept}}</td>
+                <td class="text-end">{{pay.mount | lempirasCurrency }}</td>
+                <td class="text-end">{{pay.corresponding_month | date }}</td>
+                <td class="text-center">
+                  <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
+                    style="cursor: pointer" class="material-symbols-rounded text-primary">
+                    receipt_long
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr *ngIf="!loadedPaymentes">
+                <td colspan="6" style="text-align: center;">
+                  <div class="three-body">
+                    <div class="three-body__dot"></div>
+                    <div class="three-body__dot"></div>
+                    <div class="three-body__dot"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="loadedPaymentes">
+                <td style="text-align: center;" colspan="6">No se encontro información.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<a class="btn btn-danger p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
-  href="https://wa.me/50492822663" target="_blank" style="background-color: #98c640;border-color: #98c640;"
-  type="button">
-  <span class="material-symbols-rounded">forum</span>
+<!-- Botón WhatsApp -->
+<a class="btn btn-success p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+  href="https://wa.me/50492675350" target="_blank" type="button">
+  <i class="fa-brands fa-whatsapp text-white" style="font-size: 1.5rem;"></i>
 </a>
 
 <app-payment-receipt [pay]="paySelected" [person]="projecSelected.person"></app-payment-receipt>
