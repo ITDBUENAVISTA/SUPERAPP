@@ -78,7 +78,7 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.user = this.localStorageService.getUsuario();
-    this.loadPayments();
+    //this.loadPayments();
     this.loadProjects()
   }
 
@@ -93,10 +93,11 @@ export class DashboardComponent {
   loadProjects() {
     this.customersService.customersByPerson(this.user.person._id).subscribe({
       next: (resp) => {
-        this.projects = resp.data
+        this.projects = resp.data;
         this.updateVisibleProjects();
         if (this.projects.length > 0) {
           this.projecSelected = this.projects[0];
+          this.paymentes = this.projecSelected.payments ?? []; // inicializar pagos del primer proyecto
         }
       },
       complete: () => {
@@ -105,6 +106,7 @@ export class DashboardComponent {
       }
     });
   }
+
 
   updateVisibleProjects() {
     const startIndex = this.currentPage * this.itemsPerPage;
@@ -129,7 +131,9 @@ export class DashboardComponent {
 
   selectProject(project: Customer) {
     this.projecSelected = project;
+    this.paymentes = project.payments ?? []; // asignar pagos del proyecto
   }
+
 
   downloadAccountStatement() {
     this.generatingAccountStatement = true;
