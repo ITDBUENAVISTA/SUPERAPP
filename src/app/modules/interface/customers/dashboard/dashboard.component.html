@@ -62,7 +62,7 @@
             <span class="material-symbols-rounded text-primary">download</span>
           </button>
           <small class="text-muted mt-1">Descarga tu estado de cuenta aquí</small>
-          
+
           <div *ngIf="generatingAccountStatement" class="spinner-border mt-2">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -79,7 +79,7 @@
         <h3 class="text-center text-black m-0 fw-bold" style="font-style: italic; font-size: clamp(1.5rem, 5vw, 2.5rem);">
           {{projecSelected.capital_balance | lempirasCurrency}}
         </h3>
-        <p class="form-text text-muted text-center mt-0">Saldo Capital</p>
+        <p class="form-text text-muted text-center mt-0">Pendiente por pagar con descuento</p>
 
         <div>
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">
