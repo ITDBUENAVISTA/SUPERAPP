@@ -130,7 +130,7 @@
                 <th class="text-center" scope="col">Concepto</th>
                 <th class="text-end" scope="col">Valor</th>
                 <th class="text-end" scope="col">Mes Correspondiente</th>
-                <th class="text-center" scope="col">Comprobante</th>
+                <!-- <th class="text-center" scope="col">Comprobante</th> -->
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-pay>
@@ -146,12 +146,12 @@
                   <ng-template #noDate>
                   </ng-template>
                 </td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                   <span (click)="paySelected = pay" data-bs-toggle="modal" data-bs-target="#modalModalPaymentReceipt"
                     style="cursor: pointer" class="material-symbols-rounded text-primary">
                     receipt_long
                   </span>
-                </td>
+                </td> -->
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
