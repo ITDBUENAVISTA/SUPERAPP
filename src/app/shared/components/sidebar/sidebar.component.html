@@ -41,11 +41,11 @@
           <span class="material-symbols-rounded">payments</span>
             <span class="hide-menu">Pagos</span>
           </a>
-          <a *ngIf="isRole('11')" (click)="menuMovil()" aria-expanded="false" routerLink="/clientes/reservaciones" class="sidebar-link" routerLinkActive="active"
+          <!--<a *ngIf="isRole('11')" (click)="menuMovil()" aria-expanded="false" routerLink="/clientes/reservaciones" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">early_on</span>
             <span class="hide-menu">Reservar</span>
-          </a>
+          </a>-->
           <a *ngIf="isRole('01')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/dashboard" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
             <span class="material-symbols-rounded">widgets</span>
@@ -69,11 +69,11 @@
           <span class="material-symbols-rounded">payments</span>
             <span class="hide-menu">Pagos</span>
           </a>
-          <a *ngIf="isRole('10')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/reservaciones" class="sidebar-link" routerLinkActive="active"
+          <!--<a *ngIf="isRole('10')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/reservaciones" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">early_on</span>
             <span class="hide-menu">Reservas</span>
-          </a>
+          </a>-->
         </li>
         <li *ngIf="isRole('01') || isRole('03')">
           <span class="sidebar-divider lg"></span>
