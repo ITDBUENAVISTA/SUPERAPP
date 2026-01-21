@@ -9,6 +9,9 @@ import { UserFormComponent } from './users/user-form/user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaymentsComponent } from './payments/payments.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { MenuModule } from 'primeng/menu';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,7 +41,10 @@ import { ReservationDetailModalComponent } from './reservations/reservation-deta
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    DropdownModule,
+    FormsModule,
+    MenuModule,
   ]
 })
 export class SupportModule { }

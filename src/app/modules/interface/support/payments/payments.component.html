@@ -24,31 +24,82 @@
   </div>
 
   <div class="card card-body">
-    <div class="row">
-      <div class="col-md-4 col-xl-3">
+    <div class="row align-items-center gy-3">
+      <div class="col-12 col-md-4 col-xl-3">
         <form class="position-relative">
           <input [appFilterTables]="tabla" type="text" class="form-control product-search ps-5" id="input-search" placeholder="Buscar pago">
           <span class="material-symbols-rounded position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3">search</span>
         </form>
       </div>
+      <div class="col-12 col-md-8 col-xl-6 ms-md-auto">
+        <div class="d-flex flex-column flex-md-row justify-content-end align-items-stretch gap-2">
+          <div style="min-width: 220px;">
+            <p-dropdown
+              class="status-filter"
+              [options]="statusOptions"
+              optionValue="value"
+              placeholder="Filtrar por estado"
+              [showClear]="true"
+              (onChange)="onStatusFilterChange($event.value)"
+            >
+
+              <!-- Opción seleccionada -->
+              <ng-template pTemplate="selectedItem" let-option>
+                <div *ngIf="option" class="d-flex align-items-center gap-2">
+                  <span
+                    class="material-symbols-rounded"
+                    [ngClass]="option.class">
+                    {{ option.icon }}
+                  </span>
+                  <span>{{ option.label }}</span>
+                </div>
+                <span *ngIf="!option" class="text-muted">Filtrar por estado</span>
+              </ng-template>
+
+              <!-- Opciones del menú -->
+              <ng-template pTemplate="item" let-option>
+                <div class="d-flex align-items-center gap-2">
+                  <span
+                    class="material-symbols-rounded"
+                    [ngClass]="option.class">
+                    {{ option.icon }}
+                  </span>
+                  <span>{{ option.label }}</span>
+                </div>
+              </ng-template>
+
+            </p-dropdown>
+          </div>
+          <div>
+            <button
+              class="btn btn-outline-success btn-sm d-flex align-items-center justify-content-center"
+              title="Exportar a Excel"
+              (click)="exportToExcel()">
+              <span class="material-symbols-rounded">download</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="card w-100 position-relative overflow-hidden">
+  <div class="card w-100 position-relative overflow-visible">
     <div class="card-body p-4">
       <div class="row">
         <div class="col-12">
-          <p-table #tabla [value]="vounchers" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '20rem'}"
-            [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true"
-            [globalFilterFields]="['date','person','lot','status','concept']"
+          <p-table #tabla [value]="vounchers" class="payments-table" styleClass="p-datatable-striped" [tableStyle]="{'width': '100%'}"
+            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50, 100]" [showCurrentPageReport]="true"
+            [globalFilterFields]="['date','person','lot','status','concept','number']"
             currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros">
             <ng-template pTemplate="header">
               <tr>
                 <th class="text-start" scope="col" pSortableColumn="date">Fecha</th>
                 <th class="text-start" scope="col" pSortableColumn="person">Nombre</th>
                 <th class="text-start" scope="col" pSortableColumn="lot">Lote</th>
+                <th class="text-start" scope="col" pSortableColumn="number" style="width: 100px;">Valor</th>
                 <th class="text-center" scope="col" pSortableColumn="status">Estado</th>
                 <th class="text-start" scope="col" pSortableColumn="concept">Concepto</th>
+                <th class="text-start" scope="col" pSortableColumn="comments">Comentarios</th>
                 <th class="text-center" scope="col">Acciones</th>
               </tr>
             </ng-template>
@@ -57,11 +108,23 @@
                 <td class="text-start">{{vouncher.date | date}}</td>
                 <td class="text-start">{{vouncher.person}}</td>
                 <td class="text-start">{{vouncher.lot}}</td>
+                <td class="text-start">{{ vouncher.number | currency:'L':'symbol':'1.2-2':'en-es' }}</td>
                 <td class="text-center">
                   <div *ngIf="vouncher.status === 'CARGADO'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-success" style="margin-right: 5px;">task_alt</span></div>
                   <div *ngIf="vouncher.status === 'SIN REVISAR'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-danger" style="margin-right: 5px;">error</span></div>
                 </td>
                 <td class="text-start">{{vouncher.concept}}</td>
+                <td class="text-start comment-cell">
+                  <textarea
+                    rows="1"
+                    class="comment-inline"
+                    placeholder="Agregar comentario..."
+                    [(ngModel)]="vouncher.comment"
+                    (input)="autoGrow($event)"
+                    (keydown)="onCommentKeydown($event, vouncher)"
+                    (blur)="onCommentBlur(vouncher)">
+                  </textarea>
+                </td>
                 <td class="text-center">
                   <div class="dropdown dropstart">
                     <a class="text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"

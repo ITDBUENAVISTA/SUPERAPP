@@ -75,6 +75,7 @@ export class PaymentFormComponent {
       date: new FormControl('', [Validators.required]),
       concept: new FormControl('', [Validators.required]),
       file: new FormControl('', [Validators.required]),
+      number: new FormControl('', [Validators.required]),
       customer: new FormControl('', [Validators.required]),
     });
 
@@ -86,6 +87,7 @@ export class PaymentFormComponent {
       _id: this.vouncher?._id || '',
       date: this.vouncher?.date || '',
       concept: this.vouncher?.concept || '',
+      number: this.vouncher?.number || '',
       customer: this.customer?._id || '',
     });
   }

@@ -33,6 +33,9 @@ export const VALIDATE_MESSAGES_VOUNCHER: ValidationMessagesModel = {
   ],
   file: [
     { type: 'required', message: 'El comprobante es requerido.' },
+  ],
+  number: [
+    { type: 'required', message: 'El valor del pago es requerido.' },
   ]
 };
 

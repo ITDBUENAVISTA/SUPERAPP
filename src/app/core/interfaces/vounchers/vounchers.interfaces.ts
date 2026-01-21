@@ -6,7 +6,8 @@ export interface Vouncher {
   status?: string;
   concept: string;
   file?: string;
-  customer: Customer
+  number?: number;
+  customer: Customer;
 }
 
 export interface VouncherByCustomer {
@@ -19,6 +20,8 @@ export interface ListVounchers {
   date: string;
   status: string;
   concept: string;
+  number: number;
   file: string;
   lot: string;
+  comment: string;
 }

@@ -37,6 +37,20 @@
                   </ng-container>
                 </div>
               </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <input type="number" class="form-control" id="number" placeholder="Ingresa el valor del pago"
+                    formControlName="number" name="number" [class.is-invalid]="isInvalidField('number')"
+                    [value]="vouncher.number">
+                  <ng-container *ngFor="let validation of validationMessages['number']">
+                    <div *ngIf="isValid('number', validation.type)">
+                      <div class="error-message">
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
               <div class="col-12">
                 <div class="mb-3">
                   <input #vouncherFile [readOnly]="isEdit" type="file" class="form-control" id="file"

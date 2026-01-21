@@ -22,6 +22,10 @@ export class VounchersService {
     return this.http.post<ResponseApi>(`${this.vounchersURL}`,vouncher);
   }
 
+  updateCommentVoucher(id: string, comment: string): Observable<ResponseApi> {
+    return this.http.put<ResponseApi>(`${this.vounchersURL}/comment/${id}`,{comment});
+  }
+
   changeStatusVoucher(id: string, status: string): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.vounchersURL}/${id}/${status}`,{});
   }
