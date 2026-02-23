@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { ReservationDetailModalComponent } from './reservations/reservation-detail-modal/reservation-detail-modal.component';
+import { ChangePasswordComponent } from '../../users/change-password/change-password.component';
 
 
 
@@ -30,7 +31,8 @@ import { ReservationDetailModalComponent } from './reservations/reservation-deta
     UserFormComponent,
     PaymentsComponent,
     ReservationsComponent,
-    ReservationDetailModalComponent
+    ReservationDetailModalComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

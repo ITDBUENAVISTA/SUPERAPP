@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "tu-inmueble-hn"
-  }
+    "default": "tu-inmueble-hn",
+    "tu-inmueble-hn": "tu-inmueble-hn"
+  },
+  "targets": {},
+  "etags": {}
 }
