@@ -22,4 +22,11 @@ export class UsersService {
   createUser(user: User): Observable<ResponseApi>{
     return this.http.post<ResponseApi>(`${this.usersURL}`, user);
   }
+
+  changePassword(data: { currentPassword: string; newPassword: string }) {
+    return this.http.patch(
+      `${environment.apiUrl}/users/change-password`,
+      data
+    );
+  }
 }

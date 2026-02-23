@@ -10,11 +10,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ServerErrorInterceptor } from './core/interceptors/server-error.interceptor';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 // 👇 importa el paquete de localización
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { ChangePasswordComponent } from './modules/users/change-password/change-password.component';
 
 // 👇 registra los datos de "es"
 registerLocaleData(localeEs);
@@ -22,7 +24,8 @@ registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ registerLocaleData(localeEs);
     AppRoutingModule,
     ComponentsModule,
     SweetAlert2Module.forRoot(),
-    FullCalendarModule
+    FullCalendarModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
