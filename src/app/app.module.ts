@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './shared/components/components.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TenantInterceptor } from './core/interceptors/tenant.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ServerErrorInterceptor } from './core/interceptors/server-error.interceptor';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -36,6 +37,7 @@ registerLocaleData(localeEs);
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TenantInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-ES' } // 👈 define la app en español
   ],
   bootstrap: [AppComponent]

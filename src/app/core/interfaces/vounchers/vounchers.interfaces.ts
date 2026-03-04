@@ -24,4 +24,5 @@ export interface ListVounchers {
   file: string;
   lot: string;
   comment: string;
+  tenant: string;
 }

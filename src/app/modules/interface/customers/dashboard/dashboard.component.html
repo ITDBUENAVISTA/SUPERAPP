@@ -13,7 +13,9 @@
     <button *ngFor="let project of visibleProjects; let i = index" type="button"
       class="btn btn-primary flex-grow-1 d-flex justify-content-center" [ngClass]="{'active': i === indexActive}"
       (click)="selectProject(project); indexActive = i">
-      Hacienda Colonial - {{ project.batch }}
+      {{ projecSelected.person.project == 'PB' ?
+        'Paseo del Bosque' : projecSelected.person.project == 'HC' ?
+         'Hacienda Colonial' : 'Tu Inmueble' }} - {{ project.batch }}
     </button>
   </div>
 
@@ -76,10 +78,10 @@
     <div class="card h-80 w-100">
       <div class="card-body">
         <h4 class="text-center fw-normal">Lote <strong>{{projecSelected.batch}}</strong></h4>
-        <h3 class="text-center text-black m-0 fw-bold" style="font-style: italic; font-size: clamp(1.5rem, 5vw, 2.5rem);">
+        <!--<h3 class="text-center text-black m-0 fw-bold" style="font-style: italic; font-size: clamp(1.5rem, 5vw, 2.5rem);">
           {{projecSelected.capital_balance | lempirasCurrency}}
         </h3>
-        <p class="form-text text-muted text-center mt-0">Pendiente por pagar con descuento</p>
+        <p class="form-text text-muted text-center mt-0">Pendiente por pagar con descuento</p>-->
 
         <div>
           <div class="d-flex align-items-center justify-content-between p-1 border-bottom">

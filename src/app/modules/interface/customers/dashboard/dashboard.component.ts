@@ -54,7 +54,8 @@ export class DashboardComponent {
         _id: '',
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        project: ''
       }
     };
     this.projecSelected = {
@@ -70,7 +71,8 @@ export class DashboardComponent {
         _id: '',
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        project: '',
       },
       payments: []
     }
@@ -137,7 +139,7 @@ export class DashboardComponent {
 
   downloadAccountStatement() {
     this.generatingAccountStatement = true;
-    this.customersService.generateAccountStatement(this.projecSelected._id).subscribe({
+    this.customersService.generateAccountStatement(this.projecSelected._id, this.projecSelected.person.project).subscribe({
       next: (response: Blob) => {
         // Crear una URL a partir del Blob
         const fileURL = URL.createObjectURL(response);

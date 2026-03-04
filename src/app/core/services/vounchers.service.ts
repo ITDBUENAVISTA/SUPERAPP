@@ -22,16 +22,30 @@ export class VounchersService {
     return this.http.post<ResponseApi>(`${this.vounchersURL}`,vouncher);
   }
 
-  updateCommentVoucher(id: string, comment: string): Observable<ResponseApi> {
+  /*updateCommentVoucher(id: string, comment: string): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.vounchersURL}/comment/${id}`,{comment});
   }
 
   changeStatusVoucher(id: string, status: string): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.vounchersURL}/${id}/${status}`,{});
-  }
+  }*/
 
   allVounchers(): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(`${this.vounchersURL}`);
+  }
+
+  updateCommentVoucher(id: string, comment: string, tenant: string) {
+    return this.http.put<ResponseApi>(
+      `${this.vounchersURL}/admin/${id}/comment`,
+      { comment, tenant }
+    );
+  }
+
+  changeStatusVoucher(id: string, status: string, tenant: string) {
+    return this.http.put<ResponseApi>(
+      `${this.vounchersURL}/admin/${id}/status`,
+      { status, tenant }
+    );
   }
 
 }

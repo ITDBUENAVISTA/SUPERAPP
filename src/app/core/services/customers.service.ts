@@ -26,8 +26,8 @@ export class CustomersService {
       //   return this.http.get<ResponseApi>(`${this.customersURL}/generate-account-statement-hc/${customerId}`,);
       // }
 
-      generateAccountStatement(customerId: string): Observable<Blob> {
-        const url = `${this.customersURL}/generate-account-statement-hc/${customerId}`;
+      generateAccountStatement(customerId: string, tenant: string): Observable<Blob> {
+        const url = `${this.customersURL}/generate-account-statement-${tenant}/${customerId}`;
         return this.http.get(url, { responseType: 'blob' });
       }
 

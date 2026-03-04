@@ -59,9 +59,9 @@ export class PaymentsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  changeStatusVoucher(id: string, status: string){
+  changeStatusVoucher(id: string, status: string, tenant: string){
     const newStatus = status === 'SIN REVISAR' ? 'CARGADO' : 'SIN REVISAR';
-    this.vounchersService.changeStatusVoucher(id, newStatus).subscribe({
+    this.vounchersService.changeStatusVoucher(id, newStatus, tenant).subscribe({
       next: () => {
         this.loadAllVounchers();
       }
@@ -90,7 +90,7 @@ export class PaymentsComponent implements OnInit {
     }
 
     this.vounchersService
-      .updateCommentVoucher(vouncher._id, vouncher.comment)
+      .updateCommentVoucher(vouncher._id, vouncher.comment, vouncher.tenant)
       .subscribe({
         next: () => {
           vouncher._originalComment = vouncher.comment;
@@ -115,7 +115,7 @@ export class PaymentsComponent implements OnInit {
         label: 'Cambiar estado',
         icon: 'pi pi-refresh',
         command: () =>
-          this.changeStatusVoucher(vouncher._id, vouncher.status)
+          this.changeStatusVoucher(vouncher._id, vouncher.status, vouncher.tenant)
       },
       {
         label: 'Ver comprobante',

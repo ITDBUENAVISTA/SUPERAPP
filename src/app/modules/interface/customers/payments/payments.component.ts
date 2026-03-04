@@ -52,7 +52,8 @@ export class PaymentsComponent {
         _id: '',
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        project: '',
       },
       payments: []
     }

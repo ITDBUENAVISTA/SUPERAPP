@@ -107,7 +107,7 @@
               <tr>
                 <td class="text-start">{{vouncher.date | date}}</td>
                 <td class="text-start">{{vouncher.person}}</td>
-                <td class="text-start">{{vouncher.lot}}</td>
+                <td class="text-start">{{vouncher.tenant}}-{{vouncher.lot}}</td>
                 <td class="text-start">{{ vouncher.number | currency:'L':'symbol':'1.2-2':'en-es' }}</td>
                 <td class="text-center">
                   <div *ngIf="vouncher.status === 'CARGADO'" class="d-flex justify-content-center align-items-center"><span class="material-symbols-rounded text-success" style="margin-right: 5px;">task_alt</span></div>
@@ -133,7 +133,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <li>
-                        <a (click)="changeStatusVoucher(vouncher._id,vouncher.status)" class="dropdown-item d-flex align-items-center gap-3" style="cursor: pointer;">
+                        <a (click)="changeStatusVoucher(vouncher._id,vouncher.status, vouncher.tenant)" class="dropdown-item d-flex align-items-center gap-3" style="cursor: pointer;">
                           <span class="material-symbols-rounded">toggle_off</span>
                           Cambiar estado
                         </a>

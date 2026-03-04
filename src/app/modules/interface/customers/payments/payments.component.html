@@ -39,8 +39,9 @@
                           [ngClass]="{'bg-light-subtle': project._id === projecSelected._id}">
                           <div class="ms-3 d-inline-block w-75">
                             <h6 class="mb-0 invoice-customer">{{project.batch}}</h6>
-                            <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">Hacienda
-                              Colonial</span>
+                            <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">{{ projecSelected.person.project == 'PB' ?
+                              'Paseo del Bosque' : projecSelected.person.project == 'HC' ?
+                              'Hacienda Colonial' : 'Tu Inmueble' }}</span>
                           </div>
                         </a>
                       </li>
@@ -154,7 +155,9 @@
             [ngClass]="{'bg-light-subtle': project._id === projecSelected._id}">
             <div class="ms-3 d-inline-block w-75">
               <h6 class="mb-0 invoice-customer">{{project.batch}}</h6>
-              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">Hacienda Colonial</span>
+              <span class="fs-3 invoice-id text-truncate text-body-color d-block w-85">{{ projecSelected.person.project == 'PB' ?
+              'Paseo del Bosque' : projecSelected.person.project == 'HC' ?
+              'Hacienda Colonial' : 'Tu Inmueble' }}</span>
             </div>
           </a>
         </li>

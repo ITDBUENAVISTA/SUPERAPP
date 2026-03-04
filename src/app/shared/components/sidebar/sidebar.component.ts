@@ -20,6 +20,7 @@ export class SidebarComponent {
       name: '',
       email: '',
       phone: '',
+      project: '',
     }
   }
 
