@@ -3,6 +3,7 @@ import { Table } from 'primeng/table';
 import { ListVounchers } from 'src/app/core/interfaces/vounchers/vounchers.interfaces';
 import { VounchersService } from 'src/app/core/services/vounchers.service';
 import { environment } from 'src/environments/environment';
+import { EtlService } from 'src/app/core/services/etl.service';
 
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
@@ -35,7 +36,8 @@ export class PaymentsComponent implements OnInit {
   loadedVounchers: boolean = false;
 
   constructor(
-    private readonly vounchersService: VounchersService
+    private readonly vounchersService: VounchersService,
+    private readonly etlService: EtlService
   ){}
 
   ngOnInit(){
@@ -136,23 +138,29 @@ export class PaymentsComponent implements OnInit {
     this.isLoading = true;
     this.modalData = null;
 
-    this.modalInstance.show(); // 👈 abrir una sola vez
+    this.modalInstance.show();
 
-    fetch('http://3.223.174.0:8000/run-etl?api_key=TU_INMUEBLE_2026', {
-      method: 'POST'
-    })
-      .then(res => res.json())
-      .then(data => {
+    this.etlService.runEtl().subscribe({
+      next: (data) => {
         this.isLoading = false;
         this.modalData = data;
-      })
-      .catch(err => {
+
+        // 🔁 opcional: recargar tabla si inició ETL
+        if (data.status === 'started') {
+          setTimeout(() => {
+            this.loadAllVounchers();
+          }, 3000);
+        }
+      },
+      error: (err) => {
         this.isLoading = false;
         this.modalData = {
           status: 'error',
           message: 'Error de conexión con la ETL'
         };
-      });
+        console.error(err);
+      }
+    });
   }
   ngAfterViewInit() {
     const modalElement = document.getElementById('etlModal');
