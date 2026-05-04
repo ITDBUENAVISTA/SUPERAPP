@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
+declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-payments',
@@ -23,6 +25,11 @@ export class PaymentsComponent implements OnInit {
     { label: 'CARGADO', value: 'CARGADO', icon: 'task_alt', class: 'text-success' },
     { label: 'SIN REVISAR', value: 'SIN REVISAR', icon: 'error', class: 'text-danger' }
   ];
+
+  isLoading: boolean = false;
+  modalData: any = null;
+  modalInstance: any;
+  
 
   vounchers: ListVounchers[] = [];
   loadedVounchers: boolean = false;
@@ -125,7 +132,36 @@ export class PaymentsComponent implements OnInit {
       }
     ];
   }
+  reloadPayments() {
+    this.isLoading = true;
+    this.modalData = null;
 
+    this.modalInstance.show(); // 👈 abrir una sola vez
+
+    fetch('http://3.223.174.0:8000/run-etl?api_key=TU_INMUEBLE_2026', {
+      method: 'POST'
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.isLoading = false;
+        this.modalData = data;
+      })
+      .catch(err => {
+        this.isLoading = false;
+        this.modalData = {
+          status: 'error',
+          message: 'Error de conexión con la ETL'
+        };
+      });
+  }
+  ngAfterViewInit() {
+    const modalElement = document.getElementById('etlModal');
+    this.modalInstance = new bootstrap.Modal(modalElement);
+  }
+  showResultModal(data: any) {
+    this.modalData = data;
+    this.modalInstance.show();
+  }
   exportToExcel(): void {
     const data = this.tabla.filteredValue ?? this.vounchers;
 
