@@ -22,6 +22,14 @@ export class CustomersService {
         return this.http.get<ResponseApi>(`${this.customersURL}/customers/${person_id}`);
       }
 
+      allCustomers(): Observable<ResponseApi>{
+         const headers = {
+          'x-api-key': 'u8Jk3Lm9Pq2Xs7Rt4Wv6Yz1B'
+        };
+
+        return this.http.get<ResponseApi>(`${this.customersURL}/customer/all`,{ headers });
+      }
+
       // generateAccountStatement(customerId: string): Observable<ResponseApi>{
       //   return this.http.get<ResponseApi>(`${this.customersURL}/generate-account-statement-hc/${customerId}`,);
       // }
@@ -30,6 +38,5 @@ export class CustomersService {
         const url = `${this.customersURL}/generate-account-statement-${tenant}/${customerId}`;
         return this.http.get(url, { responseType: 'blob' });
       }
-
 
 }

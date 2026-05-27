@@ -76,4 +76,20 @@
   </div>
 </div>
 
+ <!--Botón Oculto Modal Soporte-->
+    <button
+      #openModalButton
+      style="display: none;"
+      data-bs-toggle="modal"
+      data-bs-target="#modalFormReserve">
+    </button>
+
+    <app-reserve-form
+      [customers]="customers"
+      [reservation]="newReservation"
+      [isSupport]="true"
+      (formSubmit)="formSubmit()">
+    </app-reserve-form>
+
+
 

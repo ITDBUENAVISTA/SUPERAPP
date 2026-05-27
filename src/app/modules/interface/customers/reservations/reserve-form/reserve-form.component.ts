@@ -25,8 +25,15 @@ export class ReserveFormComponent {
   @Input()
   customers: Customer[];
 
+  filteredCustomers: Customer[] = [];
+
+  supportPersons: any[] = [];
+
   @Input()
   registeringReserve: boolean;
+
+  @Input()
+  isSupport: boolean = false;
 
   @Output()
   formSubmit: EventEmitter<void>;
@@ -44,12 +51,48 @@ export class ReserveFormComponent {
     this.customers = [];
     this.formSubmit = new EventEmitter<void>();
     this.formReserve = this.createForm();
+    this.filteredCustomers = [];
   }
 
   ngOnChanges(): void {
     this.formReserve = this.createForm();
     this.initForm();
+
+     if (this.isSupport) {
+      this.supportPersons = this.customers.filter(
+        (value, index, self) =>
+          index === self.findIndex(
+            (t: any) => t.name === (value as any).name
+          )
+      );
+
+      this.listenSupportCustomerChanges();
+    }
   }
+
+  listenSupportCustomerChanges(): void {
+
+    this.formReserve.get('supportCustomer')?.valueChanges.subscribe({
+
+      next: (customerName) => {
+
+        this.filteredCustomers = this.customers.filter(
+          (c: any) => c.name === customerName
+        );
+
+        this.formReserve.patchValue({
+          customer: ''
+        });
+
+        console.log('LOTES FILTRADOS');
+        console.log(this.filteredCustomers);
+      }
+
+    });
+
+  }
+
+  
 
   private createForm(): FormGroup {
     const form = this.fb.group({
@@ -59,6 +102,7 @@ export class ReserveFormComponent {
       pool: new FormControl('', []),
       grill: new FormControl('', []),
       customer: new FormControl('', [Validators.required]),
+      supportCustomer: new FormControl('', []),
     });
 
     return form;

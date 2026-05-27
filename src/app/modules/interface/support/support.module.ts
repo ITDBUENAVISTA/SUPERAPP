@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CustomersModule } from '../customers/customers.module';
 import { RouterModule } from '@angular/router';
 import { SupportRoutingModule } from './support.routing';
 import { UsersComponent } from './users/users.component';
@@ -47,6 +48,7 @@ import { ChangePasswordComponent } from '../../users/change-password/change-pass
     DropdownModule,
     FormsModule,
     MenuModule,
+    CustomersModule
   ]
 })
 export class SupportModule { }

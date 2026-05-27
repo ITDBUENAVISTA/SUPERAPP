@@ -24,6 +24,8 @@ import { ReserveFormComponent } from './reservations/reserve-form/reserve-form.c
     CustomerRoutingModule,
     SharedModule,
     ComponentsModule
+  ],exports: [
+    ReserveFormComponent
   ]
 })
 export class CustomersModule { }

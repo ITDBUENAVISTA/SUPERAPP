@@ -52,13 +52,36 @@
                   </ng-container>
                 </div>
               </div>
+              <div class="col-12" *ngIf="isSupport">
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <select
+                      class="form-select"
+                      formControlName="supportCustomer">
+
+                      <option value="">Seleccione un cliente</option>
+
+                      <option
+                        *ngFor="let person of supportPersons"
+                        [ngValue]="person.name">
+
+                        {{ person.name }}
+
+                      </option>
+
+                    </select>
+
+                    <label>Cliente</label>
+                  </div>
+                </div>
+              </div>
               <div class="col-12">
                 <div class="mb-3">
                   <div class="form-floating">
                     <select class="form-select" name="customer" id="customer" formControlName="customer"
                       [class.is-invalid]="isInvalidField('customer')" [value]="reservation.customer">
                       <option value="">Seleccione un lote</option>
-                      <option *ngFor="let customer of customers" [value]="customer._id">{{customer.batch}}</option>
+                      <option *ngFor="let customer of isSupport ? filteredCustomers : customers" [value]="customer._id">{{customer.batch}}</option>
                     </select>
                     <label for="customer" class="form-label">Lote</label>
                   </div>

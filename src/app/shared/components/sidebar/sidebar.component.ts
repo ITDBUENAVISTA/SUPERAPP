@@ -44,4 +44,12 @@ export class SidebarComponent {
     this.uiService.headerClick.emit();
   }
 
+  getTenant(): string {
+    return window.location.hostname.split('.')[0].toUpperCase();
+  }
+
+  isTenant(...tenants: string[]): boolean {
+    return tenants.includes(this.getTenant());
+  }
+
 }

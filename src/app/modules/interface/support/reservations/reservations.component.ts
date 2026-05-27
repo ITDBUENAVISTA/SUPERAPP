@@ -6,6 +6,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservationDetailModalComponent } from './reservation-detail-modal/reservation-detail-modal.component';
 import interactionPlugin from '@fullcalendar/interaction';
+import { ElementRef, ViewChild } from '@angular/core';
+import { Customer } from 'src/app/core/interfaces/customers/customers.interface';
+import { Reservation } from 'src/app/core/interfaces/reservations/reservations.interfaces';
+import { CustomersService } from 'src/app/core/services/customers.service';
 
 @Component({
   selector: 'app-reservations',
@@ -14,15 +18,22 @@ import interactionPlugin from '@fullcalendar/interaction';
 })
 export class ReservationsComponent implements OnInit {
 
+  @ViewChild('openModalButton') openModalButton!: ElementRef<HTMLButtonElement>;
+
+  customers: Customer[] = [];
+  newReservation: Reservation = {} as Reservation;
+
   reservations: ReservationDay[] = [];
   loadingReservations: boolean = false;
   previousReservations: any[] = [];
 
   calendarOptions: CalendarOptions;
 
+
   constructor(
     private reservationsService: ReservationsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private customersService: CustomersService
   ) {
     this.reservations = [];
     this.calendarOptions = {} as CalendarOptions;
@@ -32,6 +43,45 @@ export class ReservationsComponent implements OnInit {
     this.loadEvents();
     this.loadReservations();
     this.initCalendar();
+    this.loadCustomers();
+  }
+
+  loadCustomers(): void {
+
+    this.customersService.allCustomers().subscribe({
+
+      next: (resp) => {
+
+        console.log('CLIENTES SOPORTE');
+        console.log(resp.data);
+
+        this.customers = resp.data.filter(
+          (customer: any) => customer.project === 'La Montaña'
+        );
+
+      },
+
+      error: (err) => {
+        console.error(err);
+      }
+
+    });
+  }
+
+  onDateClick(info: any) {
+    this.openModalButton.nativeElement.click();
+
+    this.newReservation = {
+      date: info.dateStr,
+      schedule: '',
+      pool: false,
+      grill: false,
+    } as Reservation;
+  }
+
+  formSubmit() {
+    this.loadEvents();
+    this.loadReservations();
   }
 
 
@@ -42,7 +92,7 @@ export class ReservationsComponent implements OnInit {
     const nextYear = new Date(today);
     nextYear.setFullYear(today.getFullYear() + 1);
     this.calendarOptions = {
-      plugins: [dayGridPlugin],
+      plugins: [dayGridPlugin,interactionPlugin],
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'title',
@@ -55,7 +105,8 @@ export class ReservationsComponent implements OnInit {
         today: 'Hoy'
       },
       editable: false,
-      selectable: false,
+      selectable: true,
+      dateClick: this.onDateClick.bind(this),
       events: [],
       validRange: {
         start: tomorrow.toISOString().split('T')[0], // Fecha mínima: mañana
