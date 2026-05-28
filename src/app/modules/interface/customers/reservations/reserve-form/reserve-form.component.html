@@ -63,9 +63,9 @@
 
                       <option
                         *ngFor="let person of supportPersons"
-                        [ngValue]="person.name">
+                        [ngValue]="person._id">
 
-                        {{ person.name }}
+                        {{ person.name }} - {{person.project}}
 
                       </option>
 

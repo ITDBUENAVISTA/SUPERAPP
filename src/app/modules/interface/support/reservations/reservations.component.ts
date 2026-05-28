@@ -56,7 +56,8 @@ export class ReservationsComponent implements OnInit {
         console.log(resp.data);
 
         this.customers = resp.data.filter(
-          (customer: any) => customer.project === 'La Montaña'
+          (customer: any) =>
+            ['La Montaña', 'Paseo del Bosque'].includes(customer.project)
         );
 
       },
