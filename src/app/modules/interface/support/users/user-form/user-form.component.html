@@ -30,7 +30,8 @@
               <ng-select [clearable]="false" id="person" name="person" formControlName="person"
                   class="custom form-select" placeholder="Seleccione la persona" notFoundText="No se encontro esta persona."
                   [class.is-invalid]="isInvalidField('person')"
-                  [class.has-value]="isInvalidField('person')">
+                  [class.has-value]="isInvalidField('person')"
+                  (change)="onPersonChange($event)">
                   <ng-option *ngFor="let person of persons" [value]="person._id">{{person.name}}</ng-option>
               </ng-select>
                   <ng-container *ngFor="let validation of validationMessages['person']">
@@ -41,6 +42,43 @@
                     </div>
                   </ng-container>
             </div>
+            
+            <!-- Correo -->
+            <div class="col-md-4">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Correo electrónico"
+                formControlName="email"
+                [class.is-invalid]="isInvalidField('email')">
+                <div
+                    *ngIf="
+                            formUser.get('person')?.value &&
+                            !formUser.get('email')?.value
+                          "
+                    class="alert alert-warning mt-2">
+
+                    Esta persona no tiene correo registrado. Debe ingresar uno para crear el usuario.
+
+                  </div>
+            </div>
+
+            <!-- Es Cliente -->
+            <div class="col-12">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="isClient"
+                  [(ngModel)]="isClient"
+                  [ngModelOptions]="{standalone: true}"
+                  (change)="toggleClientMode()">
+
+                <label class="form-check-label fw-bold" for="isClient">
+                  Es Cliente
+                </label>
+              </div>
+            </div>
 
             <!-- Roles -->
             <div class="col-12 mt-3">
@@ -49,61 +87,61 @@
                 
                 <div class="col-md-4">
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role01" (change)="toggleRole('01', $event)"  [checked]="selectedRoles.includes('01')">
+                    <input type="checkbox" class="form-check-input" id="role01" (change)="toggleRole('01', $event)"  [checked]="selectedRoles.includes('01')" [disabled]="isRoleDisabled('01')">
                     <label class="form-check-label text-dark" for="role01">Dashboard Soporte</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role04" (change)="toggleRole('04', $event)"  [checked]="selectedRoles.includes('04')">
+                    <input type="checkbox" class="form-check-input" id="role04" (change)="toggleRole('04', $event)"  [checked]="selectedRoles.includes('04')" [disabled]="isRoleDisabled('04')">
                     <label class="form-check-label text-dark" for="role04">Ver Lotes</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role07" (change)="toggleRole('07', $event)"  [checked]="selectedRoles.includes('07')">
+                    <input type="checkbox" class="form-check-input" id="role07" (change)="toggleRole('07', $event)"  [checked]="selectedRoles.includes('07')" [disabled]="isRoleDisabled('07')">
                     <label class="form-check-label text-dark" for="role07">Clientes iniciados</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role10" (change)="toggleRole('10', $event)"  [checked]="selectedRoles.includes('10')">
+                    <input type="checkbox" class="form-check-input" id="role10" (change)="toggleRole('10', $event)"  [checked]="selectedRoles.includes('10')" [disabled]="isRoleDisabled('10')">
                     <label class="form-check-label text-dark" for="role10">Registrar pagos (Admin)</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role13" (change)="toggleRole('13', $event)"  [checked]="selectedRoles.includes('13')">
+                    <input type="checkbox" class="form-check-input" id="role13" (change)="toggleRole('13', $event)"  [checked]="selectedRoles.includes('13')" [disabled]="isRoleDisabled('13')">
                     <label class="form-check-label text-dark" for="role13">Ver reservaciones (Admin)</label>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role02" (change)="toggleRole('02', $event)"  [checked]="selectedRoles.includes('02')">
+                    <input type="checkbox" class="form-check-input" id="role02" (change)="toggleRole('02', $event)"  [checked]="selectedRoles.includes('02')" [disabled]="isRoleDisabled('02')">
                     <label class="form-check-label text-dark" for="role02">Dashboard Cliente</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role05" (change)="toggleRole('05', $event)"  [checked]="selectedRoles.includes('05')">
+                    <input type="checkbox" class="form-check-input" id="role05" (change)="toggleRole('05', $event)"  [checked]="selectedRoles.includes('05')" [disabled]="isRoleDisabled('05')">
                     <label class="form-check-label text-dark" for="role05">Nuevo Cliente</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role08" (change)="toggleRole('08', $event)"  [checked]="selectedRoles.includes('08')">
+                    <input type="checkbox" class="form-check-input" id="role08" (change)="toggleRole('08', $event)"  [checked]="selectedRoles.includes('08')" [disabled]="isRoleDisabled('08')">
                     <label class="form-check-label text-dark" for="role08">Lotes libres</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role11" (change)="toggleRole('11', $event)"  [checked]="selectedRoles.includes('11')">
+                    <input type="checkbox" class="form-check-input" id="role11" (change)="toggleRole('11', $event)"  [checked]="selectedRoles.includes('11')" [disabled]="isRoleDisabled('11')">
                     <label class="form-check-label text-dark" for="role11">Realizar reservas (Cliente)</label>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role03" (change)="toggleRole('03', $event)"  [checked]="selectedRoles.includes('03')">
+                    <input type="checkbox" class="form-check-input" id="role03" (change)="toggleRole('03', $event)"  [checked]="selectedRoles.includes('03')" [disabled]="isRoleDisabled('03')">
                     <label class="form-check-label text-dark" for="role03">Usuarios</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role06" (change)="toggleRole('06', $event)"  [checked]="selectedRoles.includes('06')">
+                    <input type="checkbox" class="form-check-input" id="role06" (change)="toggleRole('06', $event)"  [checked]="selectedRoles.includes('06')" [disabled]="isRoleDisabled('06')">
                     <label class="form-check-label text-dark" for="role06">Prospectos</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role09" (change)="toggleRole('09', $event)"  [checked]="selectedRoles.includes('09')">
+                    <input type="checkbox" class="form-check-input" id="role09" (change)="toggleRole('09', $event)"  [checked]="selectedRoles.includes('09')" [disabled]="isRoleDisabled('09')">
                     <label class="form-check-label text-dark" for="role09">Registrar pagos (Cliente)</label>
                   </div>
                   <div class="form-check mb-2">
-                    <input type="checkbox" class="form-check-input" id="role12" (change)="toggleRole('12', $event)"  [checked]="selectedRoles.includes('12')">
+                    <input type="checkbox" class="form-check-input" id="role12" (change)="toggleRole('12', $event)"  [checked]="selectedRoles.includes('12')" [disabled]="isRoleDisabled('12')">
                     <label class="form-check-label text-dark" for="role12">Ver todos los prospectos</label>
                   </div>
                 </div>

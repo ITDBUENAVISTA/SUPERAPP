@@ -42,15 +42,41 @@ export class UserFormComponent {
 
   formUser: FormGroup;
 
+  isClient: boolean = false;
+
+  clientRoles: string[] = ['02', '09', '11'];
+
   toggleRole(roleCode: string, event: any) {
-  if (event.target.checked) {
-    this.selectedRoles.push(roleCode);
-  } else {
-    this.selectedRoles = this.selectedRoles.filter(r => r !== roleCode);
+    if (event.target.checked) {
+      this.selectedRoles.push(roleCode);
+    } else {
+      this.selectedRoles = this.selectedRoles.filter(r => r !== roleCode);
+    }
+
+    this.formUser.get('rols')?.setValue(this.selectedRoles.join(','));
   }
 
-  this.formUser.get('rols')?.setValue(this.selectedRoles.join(','));
-}
+  toggleClientMode() {
+
+    if (this.isClient) {
+      this.selectedRoles = [...this.clientRoles];
+    } else {
+      this.selectedRoles = [];
+    }
+
+    this.formUser.get('rols')?.setValue(
+      this.selectedRoles.join(',')
+    );
+  }
+
+  isRoleDisabled(role: string): boolean {
+
+    if (!this.isClient) {
+      return false;
+    }
+
+    return !this.clientRoles.includes(role);
+  }
 
   constructor(
     private readonly fb: FormBuilder,
@@ -78,6 +104,10 @@ export class UserFormComponent {
       ]),
       rols: new FormControl('', [Validators.required]),
       person: new FormControl('', [Validators.required]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
     });
 
     if (this.isEdit) {
@@ -86,6 +116,20 @@ export class UserFormComponent {
     }
 
     return form;
+  }
+
+  onPersonChange(personId: string): void {
+
+    const person = this.persons.find(p => p._id === personId);
+
+    if (!person) {
+      return;
+    }
+
+    this.formUser.patchValue({
+      email: person.email || ''
+    });
+
   }
 
   ngOnChanges(): void {
@@ -125,7 +169,8 @@ export class UserFormComponent {
       username: this.user?.username || '',
       password: this.user?.password || '',
       rols: this.selectedRoles.join(','),
-      person: this.user?.person?._id || undefined
+      person: this.user?.person?._id || undefined,
+      email: this.user?.person?.email || ''
     });
   }
 
