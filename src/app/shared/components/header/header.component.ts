@@ -29,4 +29,8 @@ export class HeaderComponent {
     this.router.navigate(['/soporte/change-password']);
   }
 
+  goToEmailProfile() {
+    this.router.navigate(['/soporte/profile-email']);
+  }
+
 }

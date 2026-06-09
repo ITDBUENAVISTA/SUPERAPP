@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // 👇 importa el paquete de localización
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { ProfileEmailComponent } from './modules/users/profile-email/profile-email.component';
 
 // 👇 registra los datos de "es"
 registerLocaleData(localeEs);
@@ -24,6 +25,7 @@ registerLocaleData(localeEs);
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileEmailComponent,
   ],
   imports: [
     BrowserModule,

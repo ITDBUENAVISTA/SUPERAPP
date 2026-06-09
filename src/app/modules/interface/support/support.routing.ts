@@ -6,6 +6,7 @@ import { UsersComponent } from './users/users.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ChangePasswordComponent } from '../../users/change-password/change-password.component';
+import { ProfileEmailComponent } from '../../users/profile-email/profile-email.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,9 @@ const routes: Routes = [
       },
       {
         path: 'change-password', component: ChangePasswordComponent, canActivate: []
+      },
+      {
+        path: 'profile-email', component: ProfileEmailComponent, canActivate: []
       },
       {
         path: '', redirectTo: '/dashboard', pathMatch: 'full'

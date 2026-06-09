@@ -1,0 +1,52 @@
+<div class="container mt-4">
+
+  <div class="card">
+
+    <div class="card-header">
+      <h4 class="mb-0">
+        Mi correo electrónico
+      </h4>
+    </div>
+
+    <div class="card-body">
+
+      <form [formGroup]="form">
+
+        <div class="mb-3">
+
+          <label class="form-label">
+            Correo electrónico
+          </label>
+
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email">
+
+        </div>
+
+        <div
+            *ngIf="!form.get('email')?.value"
+            class="alert alert-warning">
+
+            No tienes un correo registrado.
+            Debes registrarlo para recibir notificaciones.
+
+        </div>
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            (click)="save()">
+
+            Actualizar correo
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

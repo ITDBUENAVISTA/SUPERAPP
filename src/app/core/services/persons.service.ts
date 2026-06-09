@@ -17,4 +17,17 @@ export class PersonsService {
     peopleWithoutAccount(): Observable<ResponseApi>{
       return this.http.get<ResponseApi>(`${this.personsURL}/without-account`);
     }
+
+    getMyEmail(): Observable<ResponseApi> {
+      return this.http.get<ResponseApi>(
+        `${this.personsURL}/my-email`
+      );
+    }
+
+    updateMyEmail(email: string): Observable<ResponseApi> {
+      return this.http.patch<ResponseApi>(
+        `${this.personsURL}/my-email`,
+        { email }
+      );
+    }
 }

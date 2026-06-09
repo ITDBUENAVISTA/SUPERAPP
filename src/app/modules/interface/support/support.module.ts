@@ -21,6 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { ReservationDetailModalComponent } from './reservations/reservation-detail-modal/reservation-detail-modal.component';
 import { ChangePasswordComponent } from '../../users/change-password/change-password.component';
+import { ProfileEmailComponent } from '../../users/profile-email/profile-email.component';
 
 
 
@@ -34,7 +35,7 @@ import { ChangePasswordComponent } from '../../users/change-password/change-pass
     ReservationsComponent,
     ReservationDetailModalComponent,
     ChangePasswordComponent
-  ],
+],
   imports: [
     CommonModule,
     RouterModule,
