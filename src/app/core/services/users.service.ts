@@ -29,4 +29,12 @@ export class UsersService {
       data
     );
   }
+
+  resetPassword(username: string): Observable<any> {
+    return this.http.patch(
+      `${environment.apiUrl}/users/reset-password/${username}`,
+      {}
+    );
+  }
+
 }
