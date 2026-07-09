@@ -1,0 +1,155 @@
+<div>
+
+    <mat-card>
+
+        <mat-card-header>
+
+            <mat-card-title>
+
+                📎 Documentos
+
+            </mat-card-title>
+
+            <mat-card-subtitle>
+
+                Adjunte documentos legibles en PDF, JPG o PNG.
+
+            </mat-card-subtitle>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <!-- Comprador -->
+
+            <div class="upload-card">
+
+                <h3>Documento del comprador</h3>
+
+                <p>
+                    Frente y reverso del documento de identidad.
+                </p>
+
+                <input
+                    hidden
+                    #customerInput
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onCustomerFile($event)">
+
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="customerInput.click()">
+
+                    Seleccionar archivo
+
+                </button>
+
+                <span *ngIf="customerFile">
+
+                    ✓ {{customerFile.name}}
+
+                </span>
+
+            </div>
+
+            <br>
+
+            <!-- Segundo comprador -->
+
+            <div
+                class="upload-card"
+                *ngIf="form?.get('isMancomunado')?.value">
+
+                <h3>Documento del segundo comprador</h3>
+
+                <p>
+                    Frente y reverso del documento de identidad.
+                </p>
+
+                <input
+                    hidden
+                    #customerSecondInput
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onCustomerSecondFile($event)">
+
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="customerSecondInput.click()">
+
+                    Seleccionar archivo
+
+                </button>
+
+                <span *ngIf="customerSecondFile">
+
+                    ✓ {{customerSecondFile.name}}
+
+                </span>
+
+            </div>
+
+            <br>
+
+            <!-- Beneficiario -->
+
+            <div class="upload-card">
+
+                <h3>Documento del beneficiario</h3>
+
+                <p>
+                    Frente y reverso del documento de identidad.
+                </p>
+
+                <input
+                    hidden
+                    #beneficiaryInput
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onBeneficiaryFile($event)">
+
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="beneficiaryInput.click()">
+
+                    Seleccionar archivo
+
+                </button>
+
+                <span *ngIf="beneficiaryFile">
+
+                    ✓ {{beneficiaryFile.name}}
+
+                </span>
+
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+
+    <div class="buttons">
+
+        <button
+            mat-stroked-button
+            matStepperPrevious>
+
+            Atrás
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary">
+
+            Enviar formulario
+
+        </button>
+
+    </div>
+
+</div>

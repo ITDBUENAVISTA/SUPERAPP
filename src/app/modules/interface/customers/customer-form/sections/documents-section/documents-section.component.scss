@@ -1,0 +1,47 @@
+.upload-card{
+
+    border:1px dashed #c5c5c5;
+
+    border-radius:10px;
+
+    padding:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.upload-card h3{
+
+    margin:0;
+
+}
+
+.upload-card p{
+
+    margin:0;
+
+    color:#666;
+
+}
+
+.upload-card span{
+
+    color:#2e7d32;
+
+    font-weight:600;
+
+}
+
+.buttons{
+
+    margin-top:24px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}

@@ -1,0 +1,74 @@
+<form [formGroup]="form">
+    <div>
+
+        <mat-card>
+
+            <mat-card-header>
+
+                <mat-card-title>
+
+                    👤 Beneficiario en caso de fallecimiento
+
+                </mat-card-title>
+
+                <mat-card-subtitle>
+
+                    Esta persona será registrada como beneficiaria del lote.
+
+                </mat-card-subtitle>
+
+            </mat-card-header>
+
+            <mat-card-content>
+
+                <div class="grid">
+
+                    <mat-form-field appearance="outline" class="full">
+
+                        <mat-label>Nombre completo</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="beneficiary_name">
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label>Número de identidad</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="beneficiary_identity">
+
+                    </mat-form-field>
+
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+
+        <div class="buttons">
+
+            <button
+                mat-stroked-button
+                matStepperPrevious>
+
+                Atrás
+
+            </button>
+
+            <button
+                mat-raised-button
+                color="primary"
+                matStepperNext>
+
+                Siguiente
+
+            </button>
+
+        </div>
+
+    </div>
+</form>

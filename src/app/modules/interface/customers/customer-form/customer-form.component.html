@@ -1,0 +1,70 @@
+<mat-horizontal-stepper linear>
+
+    <mat-step [stepControl]="purchaseForm">
+
+        <ng-template matStepLabel>
+
+            Datos de la compra
+
+        </ng-template>
+
+        <app-purchase-section 
+            [form]="purchaseForm"
+            [projects]="projects">
+        </app-purchase-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="personalForm">
+
+        <ng-template matStepLabel>
+
+            Datos personales
+
+        </ng-template>
+
+        <app-personal-section [form]="personalForm">
+        </app-personal-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="beneficiaryForm">
+
+        <ng-template matStepLabel>
+
+            Beneficiario
+
+        </ng-template>
+
+        <app-beneficiary-section [form]="beneficiaryForm">
+        </app-beneficiary-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="referencesForm">
+
+        <ng-template matStepLabel>
+
+            Referencias
+
+        </ng-template>
+
+        <app-references-section [form]="referencesForm">
+        </app-references-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="documentsForm">
+
+        <ng-template matStepLabel>
+
+            Documentos
+
+        </ng-template>
+
+        <app-documents-section [form]="documentsForm">
+        </app-documents-section>
+
+    </mat-step>
+
+</mat-horizontal-stepper>

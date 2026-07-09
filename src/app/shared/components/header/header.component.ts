@@ -33,4 +33,8 @@ export class HeaderComponent {
     this.router.navigate(['/soporte/profile-email']);
   }
 
+  goToProfile() {
+    this.router.navigate(['/clientes/perfil']);
+  }
+
 }

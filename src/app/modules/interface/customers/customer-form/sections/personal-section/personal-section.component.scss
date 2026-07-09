@@ -1,0 +1,25 @@
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+mat-card{
+    margin-bottom:20px;
+}
+
+mat-radio-group{
+    display:flex;
+    gap:30px;
+    margin-top:20px;
+}
+
+.buttons{
+    margin-top:24px;
+    display:flex;
+    justify-content:space-between;
+}

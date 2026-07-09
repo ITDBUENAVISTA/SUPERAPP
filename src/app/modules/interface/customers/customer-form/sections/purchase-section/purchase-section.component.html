@@ -1,0 +1,67 @@
+<form [formGroup]="form">
+    <div class="section-container">
+
+        <h2>📋 Datos de la compra</h2>
+
+        <p class="subtitle">
+            Complete la información correspondiente a la compra del lote.
+        </p>
+
+        <mat-form-field appearance="outline" class="full-width">
+
+            <mat-label>Lote</mat-label>
+
+            <mat-select formControlName="lot">
+
+                <mat-option
+                    *ngFor="let project of projects"
+                    [value]="project.batch">
+
+                    {{ project.batch }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width">
+
+            <mat-label>Plazo de financiamiento</mat-label>
+
+            <!--<mat-select formControlName="financing_term">
+
+                <mat-option value="5">5 años</mat-option>
+
+                <mat-option value="10">10 años</mat-option>
+
+                <mat-option value="15">15 años</mat-option>
+
+                <mat-option value="Contado">Contado</mat-option>
+
+            </mat-select>-->
+
+            <input
+                matInput
+                formControlName="financing_term"
+                readonly>
+
+        </mat-form-field>
+
+
+        <div class="buttons">
+
+            <button
+                mat-raised-button
+                color="primary"
+                matStepperNext>
+
+                Siguiente
+
+            </button>
+
+        </div>
+
+    </div>
+</form>

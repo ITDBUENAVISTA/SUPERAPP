@@ -1,0 +1,104 @@
+<form [formGroup]="form">
+    <div>
+
+        <mat-card>
+
+            <mat-card-header>
+
+                <mat-card-title>
+
+                    📞 Referencias personales
+
+                </mat-card-title>
+
+                <mat-card-subtitle>
+
+                    Registre dos referencias personales de contacto.
+
+                </mat-card-subtitle>
+
+            </mat-card-header>
+
+            <mat-card-content>
+
+                <h3>Referencia 1</h3>
+
+                <div class="grid">
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label>Nombre completo</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="reference1_name">
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label>Celular</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="reference1_phone">
+
+                    </mat-form-field>
+
+                </div>
+
+                <br>
+
+                <h3>Referencia 2</h3>
+
+                <div class="grid">
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label>Nombre completo</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="reference2_name">
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+
+                        <mat-label>Celular</mat-label>
+
+                        <input
+                            matInput
+                            formControlName="reference2_phone">
+
+                    </mat-form-field>
+
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+
+        <div class="buttons">
+
+            <button
+                mat-stroked-button
+                matStepperPrevious>
+
+                Atrás
+
+            </button>
+
+            <button
+                mat-raised-button
+                color="primary"
+                matStepperNext>
+
+                Siguiente
+
+            </button>
+
+        </div>
+
+    </div>
+</form>
