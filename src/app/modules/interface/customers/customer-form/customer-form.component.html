@@ -62,7 +62,10 @@
 
         </ng-template>
 
-        <app-documents-section [form]="documentsForm">
+        <app-documents-section 
+            [form]="documentsForm" 
+            (save)="save()"
+            [saving]="saving">
         </app-documents-section>
 
     </mat-step>

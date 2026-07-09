@@ -26,7 +26,7 @@ export class PurchaseSectionComponent {
 
       this.form.patchValue({
         financing_term: project.quotas.toString(),
-        customer_id: String(project._id)
+        customer_id: project._id
       });
 
     });

@@ -44,8 +44,8 @@
     customer_second_dni_url: string | null;
     beneficiary_dni_url: string | null;
 
-    customer_id: number;
-    created_by: number | null;
+    customer_id: string;
+    created_by: string | null;
     observations: string | null;
 
 }

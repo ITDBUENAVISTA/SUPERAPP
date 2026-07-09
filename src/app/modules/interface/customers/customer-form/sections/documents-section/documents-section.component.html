@@ -144,9 +144,11 @@
 
         <button
             mat-raised-button
-            color="primary">
+            color="primary"
+            (click)="save.emit()"
+            [disabled]="saving">
 
-            Enviar formulario
+            {{ saving ? 'Enviando...' : 'Enviar formulario' }}
 
         </button>
 

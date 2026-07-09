@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,12 @@ export class DocumentsSectionComponent {
 
   @Input()
   form!: FormGroup;
+
+  @Input()
+  saving = false;
+
+  @Output()
+  save = new EventEmitter<void>();
 
   onCustomerFile(event: Event){
 

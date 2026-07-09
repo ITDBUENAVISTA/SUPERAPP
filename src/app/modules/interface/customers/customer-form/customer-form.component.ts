@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { OnInit } from '@angular/core';
 import { Customer } from 'src/app/core/interfaces/customers/customers.interface';
 import { User } from 'src/app/core/interfaces/users/user.intrefaces';
@@ -6,6 +8,9 @@ import { LocalStorageService } from 'src/app/core/services/local-storage.service
 
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CustomerForm } from 'src/app/core/interfaces/customers/customer-form.interface';
+
+import { CustomerFormService } from 'src/app/core/services/customer-form.service'
 
 @Component({
   selector: 'app-customer-form',
@@ -17,7 +22,9 @@ export class CustomerFormComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private customersService: CustomersService,
-    private localStorageService: LocalStorageService
+    private customersFormService: CustomerFormService,
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +39,11 @@ export class CustomerFormComponent implements OnInit{
 
   projects: Customer[] = [];
 
+  saving = false;
+
   purchaseForm = this.fb.group({
 
+    customer_id: ['', Validators.required],
     lot: ['', Validators.required],
     financing_term: ['', Validators.required]
 
@@ -109,6 +119,86 @@ export class CustomerFormComponent implements OnInit{
           }
 
         });
+
+  }
+
+  save(){
+
+    if(
+        this.purchaseForm.invalid ||
+        this.personalForm.invalid ||
+        this.beneficiaryForm.invalid ||
+        this.referencesForm.invalid ||
+        this.documentsForm.invalid
+    ){
+
+        this.purchaseForm.markAllAsTouched();
+        this.personalForm.markAllAsTouched();
+        this.beneficiaryForm.markAllAsTouched();
+        this.referencesForm.markAllAsTouched();
+        this.documentsForm.markAllAsTouched();
+
+        return;
+
+    }
+
+    const body = {
+
+        ...this.purchaseForm.getRawValue(),
+
+        ...this.personalForm.getRawValue(),
+
+        ...this.beneficiaryForm.getRawValue(),
+
+        ...this.referencesForm.getRawValue(),
+
+        ...this.documentsForm.getRawValue(),
+
+        created_by: this.user._id,
+        observations: null
+
+    } as CustomerForm;
+
+    this.saving = true;
+
+    this.customersFormService.createCustomerForm(body).subscribe({
+
+        next: async (resp) => {
+
+          this.saving = false;
+
+          await Swal.fire({
+
+            icon: 'success',
+            title: 'Formulario enviado',
+            text: 'Tu formulario fue enviado correctamente. Pronto será revisado por nuestro equipo.',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#98c640'
+
+          });
+
+          this.router.navigate(['/clientes/dashboard']);
+
+        },
+
+        error: async (err) => {
+
+          this.saving = false;
+
+          console.error(err);
+
+          await Swal.fire({
+
+            icon: 'error',
+            title: 'No fue posible enviar el formulario',
+            text: err?.error?.message ?? 'Ocurrió un error inesperado.',
+            confirmButtonText: 'Aceptar'
+
+          });
+
+        }
+
+    });
 
   }
 
