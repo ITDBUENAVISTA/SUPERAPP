@@ -65,7 +65,8 @@
         <app-documents-section 
             [form]="documentsForm" 
             (save)="save()"
-            [saving]="saving">
+            [saving]="saving"
+            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false">
         </app-documents-section>
 
     </mat-step>

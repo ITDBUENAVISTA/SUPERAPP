@@ -21,6 +21,9 @@ export class DocumentsSectionComponent {
   @Output()
   save = new EventEmitter<void>();
 
+  @Input()
+  isMancomunado = false;
+
   onCustomerFile(event: Event){
 
     const input = event.target as HTMLInputElement;

@@ -33,6 +33,8 @@ export class CustomerFormComponent implements OnInit{
 
       this.loadProjects();
 
+      this.configureMancomunadoValidators();
+
   }
 
   user!: User;
@@ -201,5 +203,83 @@ export class CustomerFormComponent implements OnInit{
     });
 
   }
+
+  private configureMancomunadoValidators(): void {
+
+    this.personalForm.get('isMancomunado')?.valueChanges.subscribe(isMancomunado => {
+
+      const controls = [
+
+        'full_name_second',
+        'age_second',
+        'identity_number_second',
+        'marital_status_second',
+        'profession_second',
+        'email_second',
+        'country_second',
+        'department_second',
+        'municipality_second',
+        'address_second',
+        'phone_second',
+        'monthly_income_second'
+
+      ];
+
+      controls.forEach(controlName => {
+
+        const control = this.personalForm.get(controlName);
+
+        if (!control) return;
+
+        if (isMancomunado) {
+
+          if (controlName === 'email_second') {
+
+            control.setValidators([
+              Validators.required,
+              Validators.email
+            ]);
+
+          } else {
+
+            control.setValidators(Validators.required);
+
+          }
+
+        } else {
+
+          if (controlName === 'email_second') {
+
+            control.setValidators(Validators.email);
+
+          } else {
+
+            control.clearValidators();
+
+          }
+
+        }
+
+        control.updateValueAndValidity();
+
+      });
+
+       const secondDocument = this.documentsForm.get('customer_second_dni_url');
+
+      if (isMancomunado) {
+
+        secondDocument?.setValidators(Validators.required);
+
+      } else {
+
+        secondDocument?.clearValidators();
+
+      }
+
+      secondDocument?.updateValueAndValidity();
+
+    });
+
+}
 
 }
