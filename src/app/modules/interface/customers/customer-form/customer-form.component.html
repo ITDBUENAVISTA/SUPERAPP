@@ -66,7 +66,12 @@
             [form]="documentsForm" 
             (save)="save()"
             [saving]="saving"
-            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false">
+            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false"
+            (customerFileSelected)="onCustomerFileSelected($event)"
+            (customerSecondFileSelected)="onCustomerSecondFileSelected($event)"
+            (beneficiaryFileSelected)="onBeneficiaryFileSelected($event)"
+            (save)="save()"
+            >
         </app-documents-section>
 
     </mat-step>

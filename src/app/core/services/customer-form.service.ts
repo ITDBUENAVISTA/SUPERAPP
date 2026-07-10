@@ -17,7 +17,7 @@ export class CustomerFormService {
   ) { }
 
 
-  createCustomerForm(body: CustomerForm): Observable<ResponseApi>{
+  createCustomerForm(body: FormData): Observable<ResponseApi>{
     return this.http.post<ResponseApi>(`${this.customersFormURL}`,body);
   }
 }

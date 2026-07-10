@@ -24,6 +24,15 @@ export class DocumentsSectionComponent {
   @Input()
   isMancomunado = false;
 
+  @Output()
+  customerFileSelected = new EventEmitter<File>();
+
+  @Output()
+  customerSecondFileSelected = new EventEmitter<File>();
+
+  @Output()
+  beneficiaryFileSelected = new EventEmitter<File>();
+
   onCustomerFile(event: Event){
 
     const input = event.target as HTMLInputElement;
@@ -33,6 +42,8 @@ export class DocumentsSectionComponent {
       this.customerFile = input.files[0];
 
       this.form?.get('customer_dni_url')?.setValue(this.customerFile.name);
+
+      this.customerFileSelected.emit(this.customerFile);
 
     }
 
@@ -48,6 +59,8 @@ export class DocumentsSectionComponent {
 
       this.form?.get('customer_second_dni_url')?.setValue(this.customerSecondFile.name);
 
+      this.customerSecondFileSelected.emit(this.customerSecondFile);
+
     }
 
   }
@@ -61,6 +74,8 @@ export class DocumentsSectionComponent {
       this.beneficiaryFile = input.files[0];
 
       this.form?.get('beneficiary_dni_url')?.setValue(this.beneficiaryFile.name);
+
+      this.beneficiaryFileSelected.emit(this.beneficiaryFile);
 
     }
 

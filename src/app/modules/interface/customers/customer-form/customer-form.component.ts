@@ -43,6 +43,12 @@ export class CustomerFormComponent implements OnInit{
 
   saving = false;
 
+  customerFile?: File;
+
+  customerSecondFile?: File;
+
+  beneficiaryFile?: File;
+
   purchaseForm = this.fb.group({
 
     customer_id: ['', Validators.required],
@@ -154,16 +160,59 @@ export class CustomerFormComponent implements OnInit{
 
         ...this.referencesForm.getRawValue(),
 
-        ...this.documentsForm.getRawValue(),
+        //...this.documentsForm.getRawValue(),
 
         created_by: this.user._id,
         observations: null
 
-    } as CustomerForm;
+    }; //as CustomerForm;
+    
+    const formData = new FormData();
+
+    Object.entries(body).forEach(([key, value]) => {
+
+        if (value !== null && value !== undefined) {
+
+            formData.append(key, value.toString());
+
+        }
+
+    });
+
+    if (this.customerFile) {
+
+        formData.append(
+            'customer_dni',
+            this.customerFile
+        );
+
+    }
+
+    if (this.customerSecondFile) {
+
+        formData.append(
+            'customer_second_dni',
+            this.customerSecondFile
+        );
+
+    }
+
+    if (this.beneficiaryFile) {
+
+        formData.append(
+            'beneficiary_dni',
+            this.beneficiaryFile
+        );
+
+    }
+
+    console.log('customerFile', this.customerFile);
+    console.log('customerSecondFile', this.customerSecondFile);
+    console.log('beneficiaryFile', this.beneficiaryFile);
 
     this.saving = true;
 
-    this.customersFormService.createCustomerForm(body).subscribe({
+    this.customersFormService.createCustomerForm(formData).subscribe({
 
         next: async (resp) => {
 
@@ -280,6 +329,24 @@ export class CustomerFormComponent implements OnInit{
 
     });
 
-}
+  }
+
+  onCustomerFileSelected(file: File){
+
+    this.customerFile = file;
+
+  }
+
+  onCustomerSecondFileSelected(file: File){
+
+    this.customerSecondFile = file;
+
+  }
+
+  onBeneficiaryFileSelected(file: File){
+
+    this.beneficiaryFile = file;
+
+  }
 
 }
