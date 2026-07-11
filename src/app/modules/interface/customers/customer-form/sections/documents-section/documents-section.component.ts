@@ -24,6 +24,9 @@ export class DocumentsSectionComponent {
   @Input()
   isMancomunado = false;
 
+  @Input()
+  formDisabled = false;
+
   @Output()
   customerFileSelected = new EventEmitter<File>();
 

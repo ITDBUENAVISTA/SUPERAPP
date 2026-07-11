@@ -66,6 +66,7 @@
             [form]="documentsForm" 
             (save)="save()"
             [saving]="saving"
+            [formDisabled]="formLoaded"
             [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false"
             (customerFileSelected)="onCustomerFileSelected($event)"
             (customerSecondFileSelected)="onCustomerSecondFileSelected($event)"

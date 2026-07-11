@@ -35,6 +35,10 @@ export class CustomerFormComponent implements OnInit{
 
       this.configureMancomunadoValidators();
 
+      //this.listenLotChanges();
+
+      this.listenCustomerChanges();
+
   }
 
   user!: User;
@@ -48,6 +52,15 @@ export class CustomerFormComponent implements OnInit{
   customerSecondFile?: File;
 
   beneficiaryFile?: File;
+
+  formLoaded = false;
+
+  readonlyStatuses = [
+    'PENDING',
+    'REVIEWED'
+  ];
+
+  currentStatus = '';
 
   purchaseForm = this.fb.group({
 
@@ -131,6 +144,12 @@ export class CustomerFormComponent implements OnInit{
   }
 
   save(){
+
+    if (this.formLoaded) {
+
+        return;
+
+    }
 
     if(
         this.purchaseForm.invalid ||
@@ -346,6 +365,132 @@ export class CustomerFormComponent implements OnInit{
   onBeneficiaryFileSelected(file: File){
 
     this.beneficiaryFile = file;
+
+  }
+
+  private listenLotChanges(): void {
+
+    this.purchaseForm.get('lot')?.valueChanges.subscribe(lot => {
+
+      const customerId =
+        this.purchaseForm.get('customer_id')?.value;
+
+      if (!customerId || !lot) {
+
+        return;
+
+      }
+
+      this.loadCustomerForm(
+        customerId,
+        lot
+      );
+
+    });
+
+  }
+
+  private listenCustomerChanges(): void {
+
+    this.purchaseForm
+      .get('customer_id')
+      ?.valueChanges
+      .subscribe(customerId => {
+
+        const lot = this.purchaseForm.get('lot')?.value;
+
+        if (!customerId || !lot) {
+          return;
+        }
+
+        this.loadCustomerForm(customerId, lot);
+
+      });
+
+  }
+
+  private loadCustomerForm(
+      customerId: string,
+      lot: string
+  ): void {
+
+      this.customersFormService
+          .getCustomerForm(customerId, lot)
+          .subscribe({
+
+              next: (resp) => {
+
+                  const form = resp.data;
+
+                  if (!form) {
+
+                      this.enableEdition();
+
+                      return;
+
+                  }
+
+                  this.currentStatus = form.status;
+
+                  this.purchaseForm.patchValue(form,{emitEvent:false});
+                  this.personalForm.patchValue(form);
+                  this.beneficiaryForm.patchValue(form);
+                  this.referencesForm.patchValue(form);
+                  this.documentsForm.patchValue(form);
+
+                  if (
+                      this.readonlyStatuses.includes(form.status)
+                  ) {
+
+                      this.disableEdition();
+
+                  } else {
+
+                      this.enableEdition();
+
+                  }
+
+              },
+
+              error: () => {
+
+                  this.enableEdition();
+
+              }
+
+          });
+
+  }
+
+  private disableEdition(): void {
+
+    //this.purchaseForm.disable();
+
+    this.personalForm.disable();
+
+    this.beneficiaryForm.disable();
+
+    this.referencesForm.disable();
+
+    this.documentsForm.disable();
+
+    this.formLoaded = true;
+
+  }
+
+  private enableEdition(): void {
+
+    //this.purchaseForm.enable();
+
+    this.personalForm.enable();
+
+    this.beneficiaryForm.enable();
+
+    this.referencesForm.enable();
+
+    this.documentsForm.enable();
+
+    this.formLoaded = false;
 
   }
 

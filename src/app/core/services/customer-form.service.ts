@@ -20,4 +20,10 @@ export class CustomerFormService {
   createCustomerForm(body: FormData): Observable<ResponseApi>{
     return this.http.post<ResponseApi>(`${this.customersFormURL}`,body);
   }
+
+  getCustomerForm(customerId: string, lot: string): Observable<ResponseApi>{
+    return this.http.get<ResponseApi>(
+      `${this.customersFormURL}/${customerId}/${lot}`
+    );
+  }
 }

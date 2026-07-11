@@ -40,7 +40,8 @@
                 <button
                     mat-raised-button
                     color="primary"
-                    (click)="customerInput.click()">
+                    (click)="customerInput.click()"
+                    [disabled]="formDisabled">
 
                     Seleccionar archivo
 
@@ -78,7 +79,8 @@
                 <button
                     mat-raised-button
                     color="primary"
-                    (click)="customerSecondInput.click()">
+                    (click)="customerSecondInput.click()"
+                    [disabled]="formDisabled">
 
                     Seleccionar archivo
 
@@ -114,7 +116,8 @@
                 <button
                     mat-raised-button
                     color="primary"
-                    (click)="beneficiaryInput.click()">
+                    (click)="beneficiaryInput.click()"
+                    [disabled]="formDisabled">
 
                     Seleccionar archivo
 
@@ -146,7 +149,7 @@
             mat-raised-button
             color="primary"
             (click)="save.emit()"
-            [disabled]="saving">
+            [disabled]="saving || formDisabled">
 
             {{ saving ? 'Enviando...' : 'Enviar formulario' }}
 
