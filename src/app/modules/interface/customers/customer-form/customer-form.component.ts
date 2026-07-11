@@ -145,6 +145,10 @@ export class CustomerFormComponent implements OnInit{
 
   save(){
 
+    if (this.saving) {
+        return;
+    }
+
     if (this.formLoaded) {
 
         return;
