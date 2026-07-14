@@ -24,7 +24,8 @@
         </ng-template>
 
         <app-personal-section
-            [form]="personalForm">
+            [form]="personalForm"
+            [isMancomunado]="isMancomunado">
         </app-personal-section>
 
     </mat-step>
@@ -68,7 +69,7 @@
         <app-documents-review-section
             [documentsBaseUrl]="documentsBaseUrl"
             [form]="documentsForm"
-            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false">
+            [isMancomunado]="isMancomunado">
         </app-documents-review-section>
 
         <div class="d-flex justify-content-end gap-2 mt-4">

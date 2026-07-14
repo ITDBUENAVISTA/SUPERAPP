@@ -35,6 +35,8 @@ export class CustomerFormsReviewComponent implements OnInit {
 
   projects: Customer[] = [];
 
+  isMancomunado = false;
+
   purchaseForm = this.fb.group({
 
     customer_id: ['', Validators.required],
@@ -180,7 +182,9 @@ export class CustomerFormsReviewComponent implements OnInit {
 
         });
 
+        form.isMancomunado = form.ismancomunado;
         this.personalForm.patchValue(form);
+        this.isMancomunado = !!form.isMancomunado;
 
         this.beneficiaryForm.patchValue(form);
 

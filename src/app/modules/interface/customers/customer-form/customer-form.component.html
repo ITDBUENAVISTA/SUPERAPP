@@ -23,7 +23,9 @@
 
         </ng-template>
 
-        <app-personal-section [form]="personalForm">
+        <app-personal-section 
+            [form]="personalForm"
+            [isMancomunado]="isMancomunado">
         </app-personal-section>
 
     </mat-step>
@@ -66,7 +68,7 @@
             [form]="documentsForm" 
             [saving]="saving"
             [formDisabled]="formLoaded"
-            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false"
+            [isMancomunado]="isMancomunado"
             (customerFileSelected)="onCustomerFileSelected($event)"
             (customerSecondFileSelected)="onCustomerSecondFileSelected($event)"
             (beneficiaryFileSelected)="onBeneficiaryFileSelected($event)"

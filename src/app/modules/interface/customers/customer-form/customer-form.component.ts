@@ -39,6 +39,8 @@ export class CustomerFormComponent implements OnInit{
 
       this.listenCustomerChanges();
 
+      this.isMancomunado = this.personalForm.get('isMancomunado')?.value ?? false;
+
   }
 
   user!: User;
@@ -54,6 +56,8 @@ export class CustomerFormComponent implements OnInit{
   beneficiaryFile?: File;
 
   formLoaded = false;
+
+  isMancomunado = false;
 
   readonlyStatuses = [
     'PENDING',
@@ -280,6 +284,8 @@ export class CustomerFormComponent implements OnInit{
 
     this.personalForm.get('isMancomunado')?.valueChanges.subscribe(isMancomunado => {
 
+      this.isMancomunado = !!isMancomunado;
+
       const controls = [
 
         'full_name_second',
@@ -439,8 +445,21 @@ export class CustomerFormComponent implements OnInit{
 
                   this.currentStatus = form.status;
 
+                  console.log('Objeto recibido:', form);
+
+                  console.log(
+                    'isMancomunado recibido:',
+                    form.isMancomunado
+                  );
+
+                  console.log(
+                    'Valor del FormControl:',
+                    this.personalForm.get('isMancomunado')?.value
+                  );
+                  form.isMancomunado = form.ismancomunado;
                   this.purchaseForm.patchValue(form,{emitEvent:false});
                   this.personalForm.patchValue(form);
+                  this.isMancomunado = !!form.isMancomunado;
                   this.beneficiaryForm.patchValue(form);
                   this.referencesForm.patchValue(form);
                   this.documentsForm.patchValue(form);
@@ -456,6 +475,11 @@ export class CustomerFormComponent implements OnInit{
                       this.enableEdition();
 
                   }
+
+                  console.log(
+                    'Después del disable:',
+                    this.personalForm.get('isMancomunado')?.value
+                  );
 
               },
 
