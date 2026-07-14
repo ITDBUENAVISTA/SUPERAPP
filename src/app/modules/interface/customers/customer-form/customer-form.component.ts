@@ -407,6 +407,8 @@ export class CustomerFormComponent implements OnInit{
           return;
         }
 
+        //this.clearForms();
+
         this.loadCustomerForm(customerId, lot);
 
       });
@@ -428,9 +430,10 @@ export class CustomerFormComponent implements OnInit{
 
                   if (!form) {
 
-                      this.enableEdition();
+                    this.clearForms();
+                    this.enableEdition();
 
-                      return;
+                    return;
 
                   }
 
@@ -495,6 +498,37 @@ export class CustomerFormComponent implements OnInit{
     this.documentsForm.enable();
 
     this.formLoaded = false;
+
+  }
+
+  private clearForms(): void {
+
+    this.purchaseForm.patchValue({
+
+        financing_term: this.purchaseForm.get('financing_term')?.value,
+        lot: this.purchaseForm.get('lot')?.value,
+        customer_id: this.purchaseForm.get('customer_id')?.value
+
+    },
+    {
+        emitEvent:false
+    });
+
+    this.personalForm.reset({
+
+        isMancomunado:false
+
+    });
+
+    this.beneficiaryForm.reset();
+
+    this.referencesForm.reset();
+
+    this.documentsForm.reset();
+
+    this.customerFile = undefined;
+    this.customerSecondFile = undefined;
+    this.beneficiaryFile = undefined;
 
   }
 

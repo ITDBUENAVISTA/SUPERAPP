@@ -55,7 +55,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatIconModule,
     MatCardModule
   ],exports: [
-    ReserveFormComponent
+    ReserveFormComponent,
+
+    PurchaseSectionComponent,
+    PersonalSectionComponent,
+    BeneficiarySectionComponent,
+    ReferencesSectionComponent,
+    DocumentsSectionComponent
   ]
 })
 export class CustomersModule { }

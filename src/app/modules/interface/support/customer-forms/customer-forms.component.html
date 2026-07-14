@@ -1,0 +1,481 @@
+<div class="container-fluid">
+
+    <!-- ===================== -->
+    <!-- CABECERA -->
+    <!-- ===================== -->
+
+    <div class="card card-body py-3">
+
+        <div class="row align-items-center">
+
+            <div class="col-12">
+
+                <div class="d-sm-flex align-items-center justify-space-between">
+
+                    <h4 class="mb-4 mb-sm-0 card-title">
+
+                        Formularios de clientes
+
+                    </h4>
+
+                    <nav
+                        aria-label="breadcrumb"
+                        class="ms-auto">
+
+                        <ol class="breadcrumb m-0">
+
+                            <li
+                                class="breadcrumb-item d-flex align-items-center">
+
+                                <a
+                                    routerLink="/soporte/dashboard"
+                                    class="text-muted text-decoration-none d-flex">
+
+                                    <span class="material-symbols-rounded">
+
+                                        home
+
+                                    </span>
+
+                                </a>
+
+                            </li>
+
+                            <li
+                                class="breadcrumb-item"
+                                aria-current="page">
+
+                                <span
+                                    class="badge fw-medium fs-2 bg-primary-subtle text-primary">
+
+                                    Formularios
+
+                                </span>
+
+                            </li>
+
+                        </ol>
+
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- FILTROS -->
+    <!-- ===================== -->
+
+    <div class="card card-body">
+
+        <div class="row gy-3 align-items-center">
+
+            <!-- buscador -->
+
+            <div class="col-md-4">
+
+                <form class="position-relative">
+
+                    <input
+
+                        type="text"
+
+                        class="form-control product-search ps-5"
+
+                        placeholder="Buscar cliente..."
+
+                        [appFilterTables]="tabla">
+
+                    <span
+
+                        class="material-symbols-rounded position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3">
+
+                        search
+
+                    </span>
+
+                </form>
+
+            </div>
+
+            <!-- estado -->
+
+            <div class="col-md-3">
+
+                <p-dropdown
+
+                    [options]="statusOptions"
+
+                    optionLabel="label"
+
+                    optionValue="value"
+
+                    placeholder="Estado"
+
+                    [showClear]="true"
+
+                    (onChange)="onStatusFilterChange($event.value)">
+
+                    <ng-template
+                        pTemplate="selectedItem"
+                        let-option>
+
+                        <div
+                            *ngIf="option"
+                            class="d-flex align-items-center gap-2">
+
+                            <span
+                                class="material-symbols-rounded"
+                                [ngClass]="option.class">
+
+                                {{option.icon}}
+
+                            </span>
+
+                            {{option.label}}
+
+                        </div>
+
+                    </ng-template>
+
+                    <ng-template
+                        pTemplate="item"
+                        let-option>
+
+                        <div
+                            class="d-flex align-items-center gap-2">
+
+                            <span
+                                class="material-symbols-rounded"
+                                [ngClass]="option.class">
+
+                                {{option.icon}}
+
+                            </span>
+
+                            {{option.label}}
+
+                        </div>
+
+                    </ng-template>
+
+                </p-dropdown>
+
+            </div>
+
+            <!-- vistos -->
+
+            <div class="col-md-3">
+
+                <p-dropdown
+
+                    [options]="viewOptions"
+
+                    optionLabel="label"
+
+                    optionValue="value"
+
+                    placeholder="Vistos"
+
+                    [showClear]="true"
+
+                    (onChange)="onViewedFilterChange($event.value)">
+
+                </p-dropdown>
+
+            </div>
+
+            <!-- refrescar -->
+
+            <div class="col-md-2 text-end">
+
+                <button
+
+                    class="btn btn-outline-primary"
+
+                    (click)="loadForms()">
+
+                    <span class="material-symbols-rounded">
+
+                        refresh
+
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- TABLA -->
+    <!-- ===================== -->
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <p-table
+
+                #tabla
+
+                [value]="customerForms"
+
+                styleClass="p-datatable-striped"
+
+                [tableStyle]="{'width':'100%'}"
+
+                [paginator]="true"
+
+                [rows]="10"
+
+                [rowsPerPageOptions]="[10,20,50,100]"
+
+                [showCurrentPageReport]="true"
+
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords}"
+
+                [globalFilterFields]="[
+                    'customer_name',
+                    'lot',
+                    'status',
+                    'financing_term'
+                ]">
+
+                <!-- header -->
+
+                <ng-template pTemplate="header">
+
+                    <tr>
+
+                        <th
+                            class="text-center"
+                            style="width:70px">
+
+                            Visto
+
+                        </th>
+
+                        <th pSortableColumn="customer_name">
+
+                            Cliente
+
+                        </th>
+
+                        <th pSortableColumn="lot">
+
+                            Lote
+
+                        </th>
+
+                        <th pSortableColumn="financing_term">
+
+                            Financiación
+
+                        </th>
+
+                        <th
+                            class="text-center"
+                            pSortableColumn="status">
+
+                            Estado
+
+                        </th>
+
+                        <th pSortableColumn="created_at">
+
+                            Fecha
+
+                        </th>
+
+                        <th
+                            class="text-center"
+                            style="width:80px">
+
+                            Acción
+
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+
+                <!-- body -->
+
+                <ng-template
+                    pTemplate="body"
+                    let-form>
+
+                    <tr>
+
+                        <!-- visto -->
+
+                        <td class="text-center">
+
+                            <span
+
+                                *ngIf="form.viewed_at"
+
+                                class="material-symbols-rounded text-success"
+
+                                title="Ya fue revisado">
+
+                                visibility
+
+                            </span>
+
+                            <span
+
+                                *ngIf="!form.viewed_at"
+
+                                class="material-symbols-rounded text-secondary"
+
+                                title="Pendiente">
+
+                                visibility_off
+
+                            </span>
+
+                        </td>
+
+                        <!-- cliente -->
+
+                        <td>
+
+                            <strong>
+
+                                {{form.customer_name}}
+
+                            </strong>
+
+                        </td>
+
+                        <!-- lote -->
+
+                        <td>
+
+                            {{form.tenant}} - {{form.lot}}
+
+                        </td>
+
+                        <!-- cuotas -->
+
+                        <td>
+
+                            {{form.financing_term}} cuotas
+
+                        </td>
+
+                        <!-- estado -->
+
+                        <td class="text-center">
+
+                            <span
+
+                                *ngIf="form.status=='PENDING'"
+
+                                class="badge bg-warning text-dark">
+
+                                Pendiente
+
+                            </span>
+
+                            <span
+
+                                *ngIf="form.status=='REVIEWED'"
+
+                                class="badge bg-success">
+
+                                Revisado
+
+                            </span>
+
+                            <span
+
+                                *ngIf="form.status=='RETURNED'"
+
+                                class="badge bg-danger">
+
+                                Devuelto
+
+                            </span>
+
+                        </td>
+
+                        <!-- fecha -->
+
+                        <td>
+
+                            {{form.created_at | date:'dd/MM/yyyy HH:mm'}}
+
+                        </td>
+
+                        <!-- acciones -->
+
+                        <td class="text-center">
+
+                            <button
+
+                                class="btn btn-primary btn-sm"
+
+                                [routerLink]="[
+                                    '/soporte/formularios',
+                                    form.customer_id,
+                                    form.lot
+                                ]">
+
+                                Ver
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </ng-template>
+
+                <!-- vacío -->
+
+                <ng-template pTemplate="emptymessage">
+
+                    <tr *ngIf="loading">
+
+                        <td
+                            colspan="7"
+                            class="text-center">
+
+                            <div class="spinner-border">
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    <tr *ngIf="!loading">
+
+                        <td
+                            colspan="7"
+                            class="text-center">
+
+                            No se encontraron formularios.
+
+                        </td>
+
+                    </tr>
+
+                </ng-template>
+
+            </p-table>
+
+        </div>
+
+    </div>
+
+</div>

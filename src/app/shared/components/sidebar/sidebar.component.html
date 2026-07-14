@@ -64,6 +64,15 @@
             <span class="material-symbols-rounded">group</span>
             <span class="hide-menu">Usuarios</span>
           </a>
+          <a *ngIf="isRole('14')"(click)="menuMovil()" routerLink="/soporte/formularios"class="sidebar-link"
+          routerLinkActive="active">
+              <span class="material-symbols-rounded">
+                description
+              </span>
+              <span class="hide-menu">
+                  Formularios clientes
+              </span>
+          </a>
           <a *ngIf="isRole('10')" (click)="menuMovil()" aria-expanded="false" routerLink="/soporte/pagos" class="sidebar-link" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <span class="material-symbols-rounded">payments</span>

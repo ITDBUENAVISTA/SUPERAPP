@@ -7,6 +7,8 @@ import { PaymentsComponent } from './payments/payments.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ChangePasswordComponent } from '../../users/change-password/change-password.component';
 import { ProfileEmailComponent } from '../../users/profile-email/profile-email.component';
+import { CustomerFormsComponent } from './customer-forms/customer-forms.component';
+import { CustomerFormsReviewComponent } from './customer-forms-review/customer-forms-review.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,15 @@ const routes: Routes = [
       },
       {
         path: '', redirectTo: '/dashboard', pathMatch: 'full'
-      }
+      },
+      {
+        path:'formularios',
+        component:CustomerFormsComponent
+      },
+      {
+        path:'formularios/:customerId/:lot',
+        component:CustomerFormsReviewComponent
+      },
     ]
   }
 ];

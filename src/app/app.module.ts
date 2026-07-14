@@ -25,7 +25,7 @@ registerLocaleData(localeEs);
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileEmailComponent,  
+    ProfileEmailComponent,
   ],
   imports: [
     BrowserModule,

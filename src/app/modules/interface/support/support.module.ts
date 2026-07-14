@@ -18,10 +18,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 import { ReservationDetailModalComponent } from './reservations/reservation-detail-modal/reservation-detail-modal.component';
 import { ChangePasswordComponent } from '../../users/change-password/change-password.component';
 import { ProfileEmailComponent } from '../../users/profile-email/profile-email.component';
+import { CustomerFormsComponent } from './customer-forms/customer-forms.component';
+import { CustomerFormsReviewComponent } from './customer-forms-review/customer-forms-review.component';
+import { DocumentsReviewSectionComponent } from './customer-forms-review/documents-review-section/documents-review-section.component';
 
 
 
@@ -34,7 +41,10 @@ import { ProfileEmailComponent } from '../../users/profile-email/profile-email.c
     PaymentsComponent,
     ReservationsComponent,
     ReservationDetailModalComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CustomerFormsComponent,
+    CustomerFormsReviewComponent,
+    DocumentsReviewSectionComponent
 ],
   imports: [
     CommonModule,
@@ -49,7 +59,9 @@ import { ProfileEmailComponent } from '../../users/profile-email/profile-email.c
     DropdownModule,
     FormsModule,
     MenuModule,
-    CustomersModule
+    CustomersModule,
+    MatCardModule,
+    MatStepperModule,
   ]
 })
 export class SupportModule { }

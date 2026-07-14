@@ -7,5 +7,7 @@
 export const environment = {
   production: false,
   apiUrl: '/api',
-  urlComprobantes: '/comprobantes/'
+  urlComprobantes: '/comprobantes/',
+
+  urlCustomerForms: 'https://api.devopssolutions.com.co/uploads/'
 };

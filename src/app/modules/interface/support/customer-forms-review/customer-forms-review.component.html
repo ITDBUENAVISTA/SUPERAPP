@@ -1,0 +1,110 @@
+<mat-horizontal-stepper linear>
+
+    <mat-step [stepControl]="purchaseForm">
+
+        <ng-template matStepLabel>
+
+            Datos de la compra
+
+        </ng-template>
+
+        <app-purchase-section
+            [form]="purchaseForm"
+            [projects]="projects">
+        </app-purchase-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="personalForm">
+
+        <ng-template matStepLabel>
+
+            Datos personales
+
+        </ng-template>
+
+        <app-personal-section
+            [form]="personalForm">
+        </app-personal-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="beneficiaryForm">
+
+        <ng-template matStepLabel>
+
+            Beneficiario
+
+        </ng-template>
+
+        <app-beneficiary-section
+            [form]="beneficiaryForm">
+        </app-beneficiary-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="referencesForm">
+
+        <ng-template matStepLabel>
+
+            Referencias
+
+        </ng-template>
+
+        <app-references-section
+            [form]="referencesForm">
+        </app-references-section>
+
+    </mat-step>
+
+    <mat-step [stepControl]="documentsForm">
+
+        <ng-template matStepLabel>
+
+            Documentos
+
+        </ng-template>
+
+        <app-documents-review-section
+            [documentsBaseUrl]="documentsBaseUrl"
+            [form]="documentsForm"
+            [isMancomunado]="personalForm.get('isMancomunado')?.value ?? false">
+        </app-documents-review-section>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+
+            <button
+                type="button"
+                class="btn btn-danger"
+                (click)="updateStatus('RETURNED')">
+
+                <span class="material-symbols-rounded me-1">
+
+                    undo
+
+                </span>
+
+                Devolver
+
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-success"
+                (click)="updateStatus('REVIEWED')">
+
+                <span class="material-symbols-rounded me-1">
+
+                    task_alt
+
+                </span>
+
+                Aprobar
+
+            </button>
+
+        </div>
+
+    </mat-step>
+
+</mat-horizontal-stepper>
