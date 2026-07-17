@@ -17,6 +17,9 @@ import { environment } from 'src/environments/environment';
 export class PaymentsComponent {
 
   public urlServer = environment.urlComprobantes;
+  public urlServerRecibos = environment.urlRecibos;
+
+  public imageSelected: string = '';
 
   signal = new Subject<void>();
 
@@ -108,6 +111,56 @@ export class PaymentsComponent {
         this.registeringPayment = false;
       }
     })
+  }
+
+  openImage(url: string): void {
+    this.imageSelected = url;
+  }
+
+  printImage(): void {
+
+    const ventana = window.open('', '_blank');
+
+    if (!ventana) {
+      return;
+    }
+
+    ventana.document.write(`
+      <html>
+        <head>
+          <title>Imprimir</title>
+
+          <style>
+
+            body{
+              margin:0;
+              display:flex;
+              justify-content:center;
+              align-items:center;
+              height:100vh;
+              background:white;
+            }
+
+            img{
+              max-width:100%;
+              max-height:100%;
+            }
+
+          </style>
+
+        </head>
+
+        <body onload="window.print(); window.close();">
+
+          <img src="${this.imageSelected}" />
+
+        </body>
+
+      </html>
+    `);
+
+    ventana.document.close();
+
   }
 
 }

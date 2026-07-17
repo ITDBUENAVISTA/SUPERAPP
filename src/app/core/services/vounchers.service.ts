@@ -20,7 +20,7 @@ export class VounchersService {
 
   createVouncher(vouncher: FormData): Observable<ResponseApi> {
     return this.http.post<ResponseApi>(`${this.vounchersURL}`,vouncher);
-  }
+  } 
 
   /*updateCommentVoucher(id: string, comment: string): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.vounchersURL}/comment/${id}`,{comment});

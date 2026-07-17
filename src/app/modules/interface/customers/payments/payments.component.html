@@ -78,6 +78,7 @@
                   <th style="width: 50%;" class="text-start" scope="col">Valor</th>
                   <th style="width: 50%;" class="text-center" scope="col">Estado</th>
                   <th style="width: 30%;" class="text-center" scope="col">Comprobante</th>
+                  <th style="width: 30%;" class="text-center" scope="col">Recibo</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-vouncher>
@@ -94,7 +95,23 @@
                         class="material-symbols-rounded text-danger" style="margin-right: 5px;">error</span></div>
                   </td>
                   <td class="text-center">
-                    <img [src]="urlServer+vouncher.file" alt="" class="rounded img-fluid" style="max-width:50px; max-height:50px;">
+                    <img 
+                      [src]="urlServer+vouncher.file" 
+                      alt="" 
+                      class="rounded img-fluid cursor:pointer;" 
+                      style="max-width:50px; max-height:50px;"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imageModal"
+                      (click)="openImage(urlServer + vouncher.file)">
+                  </td>
+                  <td class="text-center">
+                    <img 
+                      [src]="urlServerRecibos+vouncher.receipt" 
+                      alt="" class="rounded img-fluid cursor:pointer;" 
+                      style="max-width:50px; max-height:50px;"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imageModal"
+                      (click)="openImage(urlServerRecibos + vouncher.receipt)">
                   </td>
                 </tr>
               </ng-template>
@@ -164,4 +181,72 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title">Vista previa</h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <div class="modal-body text-center">
+
+        <img
+          [src]="imageSelected"
+          class="img-fluid rounded">
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+            Cerrar
+        </button>
+
+        <button
+            class="btn btn-primary"
+            (click)="printImage()">
+            <span class="material-symbols-rounded me-1">
+                print
+            </span>
+            Imprimir
+        </button>
+
+        <a
+            class="btn btn-success"
+            [href]="imageSelected"
+            download>
+
+            <span class="material-symbols-rounded me-1">
+                download
+            </span>
+
+            Descargar
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

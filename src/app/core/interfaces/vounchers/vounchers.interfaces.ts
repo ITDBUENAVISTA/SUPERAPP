@@ -6,6 +6,7 @@ export interface Vouncher {
   status?: string;
   concept: string;
   file?: string;
+  receipt?: string;
   number?: number;
   customer: Customer;
 }
@@ -22,6 +23,7 @@ export interface ListVounchers {
   concept: string;
   number: number;
   file: string;
+  receipt: string;
   lot: string;
   comment: string;
   tenant: string;

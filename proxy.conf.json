@@ -9,5 +9,10 @@
     "target": "http://localhost:8002",
     "secure": false,
     "changeOrigin": false
+  },
+  "/recibos": {
+    "target": "http://localhost:8002",
+    "secure": false,
+    "changeOrigin": false
   }
 }
